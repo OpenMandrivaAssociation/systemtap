@@ -17,6 +17,7 @@ Source0: 	%{name}-%{date}.tar.bz2
 BuildRoot: 	%{_tmppath}/%{name}-%{version}-%{release}-root
 Requires:	%{libname}
 Requires:	%{develname}
+Buildrequires:	libcap-devel
 
 %description
 SystemTap provides free software (GPL) infrastructure to simplify the gathering
