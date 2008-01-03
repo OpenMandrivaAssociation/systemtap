@@ -18,9 +18,7 @@ BuildRoot: 	%{_tmppath}/%{name}-%{version}-%{release}-root
 Requires:	%{libname}
 Requires:	%{develname}
 Buildrequires:	libcap-devel
-Buildrequires:	elfutils
-Buildrequires:	libelfutils-devel
-Buildrequires:	libcap-devel
+Buildrequires:	elfutils-static-devel
 
 %description
 SystemTap provides free software (GPL) infrastructure to simplify the gathering
