@@ -1,9 +1,7 @@
 %define name 		systemtap
 %define date		20071208
 %define version 	0.%{date}.1
-%define release 	%mkrel 1
-%define libname 	%mklibname %{name}
-%define develname 	%mklibname %{name} -d
+%define release 	%mkrel 2
 
 
 Summary: 	Infrastructure to gather information about the running Linux system
@@ -15,8 +13,6 @@ Group: 		Development/Kernel
 URL: 		http://sourceware.org/systemtap/
 Source0: 	%{name}-%{date}.tar.bz2
 BuildRoot: 	%{_tmppath}/%{name}-%{version}-%{release}-root
-Requires:	%{libname}
-Requires:	%{develname}
 Buildrequires:	libcap-devel
 Buildrequires:	elfutils-static-devel
 
@@ -61,5 +57,3 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man*/*
 %{_libdir}/%{name}/*
 %{_datadir}/%{name}/*
-
-
