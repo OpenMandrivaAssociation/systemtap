@@ -1,5 +1,5 @@
 %define name 		systemtap
-%define date		20071208
+%define date		20080112
 %define version 	0.%{date}.1
 %define release 	%mkrel 2
 
