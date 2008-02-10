@@ -1,5 +1,5 @@
 %define name 		systemtap
-%define date		20080126
+%define date		20080209
 %define version 	0.%{date}.1
 %define release 	%mkrel 1
 
@@ -16,9 +16,6 @@ BuildRoot: 	%{_tmppath}/%{name}-%{version}-%{release}-root
 Buildrequires:	libcap-devel
 Buildrequires:	elfutils-static-devel
 
-# this patch fix a type (#elif instead of #else)
-# the repository is already updated so the next release should fix this bug
-Patch0:		fix_stack_i386.patch
 
 %description
 SystemTap provides free software (GPL) infrastructure to simplify the gathering
@@ -39,7 +36,6 @@ Current project members include Red Hat, IBM, Intel, and Hitachi.
 
 %prep
 %setup -q -c %{name}-%{date}
-%patch0
 
 %build
 cd src
