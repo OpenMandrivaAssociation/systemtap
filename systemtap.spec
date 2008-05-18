@@ -1,5 +1,5 @@
 %define name 		systemtap
-%define date		20080510
+%define date		20080517
 %define version 	0.%{date}.1
 %define release 	%mkrel 1
 
@@ -35,17 +35,24 @@ Current project members include Red Hat, IBM, Intel, and Hitachi.
 
 
 %prep
-%setup -q -n %{name}-%{date}
+# %setup -q -n %{name}-%{date}
+%setup -q -n src
+
 
 %build
 # cd src
 %configure
 %make
 
+
 %install
 rm -rf $RPM_BUILD_ROOT
 # cd src
 %makeinstall
+
+# we add testsuite with a lot of examples
+install -m 766 -d testsuite $RPM_BUILD_ROOT/%{_datadir}/%{name}/
+
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -53,7 +60,6 @@ rm -rf $RPM_BUILD_ROOT
 
 %files
 %defattr(-,root,root,-)
-#doc src/AUTHORS src/INSTALL src/HACKING src/README
 %doc AUTHORS INSTALL HACKING README
 %{_bindir}/stap*
 %{_mandir}/man*/*
