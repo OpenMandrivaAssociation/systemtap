@@ -15,6 +15,7 @@ Source0: 	%{name}-%{date}.tar.bz2
 BuildRoot: 	%{_tmppath}/%{name}-%{version}-%{release}-root
 Buildrequires:	libcap-devel
 Buildrequires:	elfutils-static-devel
+Buildrequires:	elfutils-devel
 
 
 %description
