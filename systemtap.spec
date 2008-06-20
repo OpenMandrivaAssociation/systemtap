@@ -12,10 +12,13 @@ License: 	GPL
 Group: 		Development/Kernel
 URL: 		http://sourceware.org/systemtap/
 Source0: 	%{name}-%{date}.tar.bz2
+# trem: this patch are requested because of : http://wiki.mandriva.com/en/Underlinking
+# when the configure compile the test for libebl, libbl and libelf need to be added
+Patch0:		fix_configure_add_ldl.patch
+Patch1:		fix_configure_add_lelf.patch
 BuildRoot: 	%{_tmppath}/%{name}-%{version}-%{release}-root
 Buildrequires:	libcap-devel
 Buildrequires:	elfutils-static-devel
-Buildrequires:	elfutils-devel
 
 
 %description
@@ -38,6 +41,8 @@ Current project members include Red Hat, IBM, Intel, and Hitachi.
 %prep
 # %setup -q -n %{name}-%{date}
 %setup -q -n src
+%patch -p0
+%patch1 -p0
 
 
 %build
