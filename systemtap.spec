@@ -1,7 +1,7 @@
 %define name 		systemtap
 %define date		20080614
 %define version 	0.%{date}.1
-%define release 	%mkrel 1
+%define release 	%mkrel 2
 
 
 Summary: 	Infrastructure to gather information about the running Linux system
