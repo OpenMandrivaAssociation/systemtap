@@ -1,7 +1,7 @@
 %define name 		systemtap
-%define date		20080614
+%define date		20080705
 %define version 	0.%{date}.1
-%define release 	%mkrel 2
+%define release 	%mkrel 1
 
 
 Summary: 	Infrastructure to gather information about the running Linux system
@@ -41,8 +41,8 @@ Current project members include Red Hat, IBM, Intel, and Hitachi.
 %prep
 # %setup -q -n %{name}-%{date}
 %setup -q -n src
-%patch -p0
-%patch1 -p0
+# %patch -p0
+# %patch1 -p0
 
 
 %build
