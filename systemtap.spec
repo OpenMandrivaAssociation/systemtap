@@ -1,6 +1,7 @@
 %define name 		systemtap
-%define date		20081013
-%define version 	0.%{date}.1
+#define date		20081013
+#define version 	0.%{date}.1
+%define version 	0.8
 %define release 	%mkrel 1
 
 
@@ -11,11 +12,7 @@ Release: 	%{release}
 License: 	GPL
 Group: 		Development/Kernel
 URL: 		http://sourceware.org/systemtap/
-Source0: 	%{name}-%{date}.tar.bz2
-# trem: this patch are requested because of : http://wiki.mandriva.com/en/Underlinking
-# when the configure compile the test for libebl, libbl and libelf need to be added
-Patch0:		fix_configure_add_ldl.patch
-Patch1:		fix_configure_add_lelf.patch
+Source0: 	%{name}-%{version}.tar.gz
 BuildRoot: 	%{_tmppath}/%{name}-%{version}-%{release}-root
 Buildrequires:	libcap-devel
 Buildrequires:	elfutils-static-devel
@@ -39,14 +36,9 @@ Current project members include Red Hat, IBM, Intel, and Hitachi.
 
 
 %prep
-# %setup -q -n %{name}-%{date}
-%setup -q -n src
-# %patch -p0
-# %patch1 -p0
-
+%setup -q
 
 %build
-# cd src
 %configure
 %make
 
