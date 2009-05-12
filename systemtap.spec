@@ -1,7 +1,7 @@
 %define name 		systemtap
-#define date		20081013
-#define version 	0.%{date}.1
-%define version 	0.8
+%define date		20090429
+%define version 	0.%{date}.1
+#define version 	0.9.7
 %define release 	%mkrel 1
 
 
@@ -12,10 +12,11 @@ Release: 	%{release}
 License: 	GPL
 Group: 		Development/Kernel
 URL: 		http://sourceware.org/systemtap/
-Source0: 	%{name}-%{version}.tar.gz
+Source0: 	%{name}-%{date}.tar.bz2
 BuildRoot: 	%{_tmppath}/%{name}-%{version}-%{release}-root
 Buildrequires:	libcap-devel
 Buildrequires:	elfutils-static-devel
+BuildRequires:	gtkmm2.4-devel
 
 
 %description
@@ -36,7 +37,7 @@ Current project members include Red Hat, IBM, Intel, and Hitachi.
 
 
 %prep
-%setup -q
+%setup -q -n %{name}-%{date}
 
 %build
 %configure
@@ -59,7 +60,10 @@ rm -rf $RPM_BUILD_ROOT
 %files
 %defattr(-,root,root,-)
 %doc AUTHORS INSTALL HACKING README
+%{_bindir}/dtrace
+%{_bindir}/grapher
 %{_bindir}/stap*
 %{_mandir}/man*/*
 %{_libdir}/%{name}/*
 %{_datadir}/%{name}/*
+%{_includedir}/sys/sdt.h
