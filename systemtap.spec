@@ -1,18 +1,12 @@
-%define name 		systemtap
-%define date		20090429
-%define version 	0.%{date}.1
-#define version 	0.9.7
-%define release 	%mkrel 1
-
-
 Summary: 	Infrastructure to gather information about the running Linux system
-Name: 		%{name}
-Version: 	%{version}
-Release: 	%{release}
+Name: 		systemtap
+Epoch:		1
+Version: 	0.9.8
+Release: 	%mkrel 1
 License: 	GPL
 Group: 		Development/Kernel
 URL: 		http://sourceware.org/systemtap/
-Source0: 	%{name}-%{date}.tar.bz2
+Source: 	http://sourceware.org/systemtap/ftp/releases/systemtap-%{version}.tar.gz
 BuildRoot: 	%{_tmppath}/%{name}-%{version}-%{release}-root
 Buildrequires:	libcap-devel
 Buildrequires:	elfutils-static-devel
@@ -37,10 +31,10 @@ Current project members include Red Hat, IBM, Intel, and Hitachi.
 
 
 %prep
-%setup -q -n %{name}-%{date}
+%setup -q
 
 %build
-%configure
+%configure2_5x
 %make
 
 
