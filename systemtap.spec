@@ -1,7 +1,7 @@
 Summary: 	Infrastructure to gather information about the running Linux system
 Name: 		systemtap
 Epoch:		1
-Version: 	0.9.8
+Version: 	0.9.9
 Release: 	%mkrel 1
 License: 	GPL
 Group: 		Development/Kernel
@@ -55,7 +55,6 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(-,root,root,-)
 %doc AUTHORS INSTALL HACKING README
 %{_bindir}/dtrace
-%{_bindir}/grapher
 %{_bindir}/stap*
 %{_mandir}/man*/*
 %{_libdir}/%{name}/*
