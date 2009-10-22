@@ -2,11 +2,15 @@ Summary: 	Infrastructure to gather information about the running Linux system
 Name: 		systemtap
 Epoch:		1
 Version: 	1.0
-Release: 	%mkrel 1
+Release: 	%mkrel 2
 License: 	GPL
 Group: 		Development/Kernel
 URL: 		http://sourceware.org/systemtap/
 Source: 	http://sourceware.org/systemtap/ftp/releases/systemtap-%{version}.tar.gz
+# Fedora patches for CVE-2009-2911
+Patch0:		SystemTap-1.0-limit-dwarf-expression-stack-size.patch
+Patch1:		SystemTap-1.0-limit-printf-arguments.patch
+Patch2:		SystemTap-1.0-unwind-table-size-checks.patch
 BuildRoot: 	%{_tmppath}/%{name}-%{version}-%{release}-root
 Buildrequires:	libcap-devel
 Buildrequires:	elfutils-static-devel
@@ -32,6 +36,9 @@ Current project members include Red Hat, IBM, Intel, and Hitachi.
 
 %prep
 %setup -q
+%patch0 -p1
+%patch1 -p1
+%patch2 -p1
 
 %build
 %configure2_5x
