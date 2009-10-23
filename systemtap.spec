@@ -2,7 +2,7 @@ Summary: 	Infrastructure to gather information about the running Linux system
 Name: 		systemtap
 Epoch:		1
 Version: 	1.0
-Release: 	%mkrel 2
+Release: 	%mkrel 3
 License: 	GPL
 Group: 		Development/Kernel
 URL: 		http://sourceware.org/systemtap/
