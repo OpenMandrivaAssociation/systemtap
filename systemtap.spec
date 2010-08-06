@@ -1,7 +1,7 @@
 Summary: 	Infrastructure to gather information about the running Linux system
 Name: 		systemtap
 Epoch:		1
-Version: 	1.2
+Version: 	1.3
 Release: 	%mkrel 1
 License: 	GPLv2+
 Group: 		Development/Kernel
@@ -11,6 +11,9 @@ BuildRoot: 	%{_tmppath}/%{name}-%{version}-%{release}-root
 Buildrequires:	libcap-devel
 Buildrequires:	elfutils-static-devel
 BuildRequires:	gtkmm2.4-devel
+Buildrequires:	libavahi-client-devel
+Buildrequires:	latex2html
+BuildRequires:	libglade2.0-devel
 
 
 %description
