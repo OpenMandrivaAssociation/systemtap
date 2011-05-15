@@ -1,19 +1,22 @@
 Summary: 	Infrastructure to gather information about the running Linux system
 Name: 		systemtap
 Epoch:		1
-Version: 	1.3
-Release: 	%mkrel 2
+Version: 	1.4
+Release: 	%mkrel 1
 License: 	GPLv2+
 Group: 		Development/Kernel
 URL: 		http://sourceware.org/systemtap/
-Source: 	http://sourceware.org/systemtap/ftp/releases/systemtap-%{version}.tar.gz
-BuildRoot: 	%{_tmppath}/%{name}-%{version}-%{release}-root
+Source0: 	http://sourceware.org/systemtap/ftp/releases/systemtap-%{version}.tar.gz
+Patch0:		sdt-regtable.patch
+Patch1:		clonestopped.patch
+Patch2:		gcc46warnings.patch
 Buildrequires:	libcap-devel
 Buildrequires:	elfutils-static-devel
 BuildRequires:	gtkmm2.4-devel
 Buildrequires:	libavahi-client-devel
 Buildrequires:	latex2html
 BuildRequires:	libglade2.0-devel
+BuildRoot: 	%{_tmppath}/%{name}-%{version}-%{release}-root
 
 
 %description
@@ -34,7 +37,11 @@ Current project members include Red Hat, IBM, Intel, and Hitachi.
 
 
 %prep
+
 %setup -q
+%patch0 -p1
+%patch1 -p1
+%patch2 -p1
 
 %build
 %configure2_5x
