@@ -39,7 +39,7 @@ Current project members include Red Hat, IBM, Intel, and Hitachi.
 %setup -q
 
 %build
-%configure2_5x
+%configure2_5x --without-rpm
 %make
 
 
