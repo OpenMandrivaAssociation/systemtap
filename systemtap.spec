@@ -14,7 +14,7 @@ BuildRequires:	gtkmm2.4-devel
 Buildrequires:	libavahi-client-devel
 Buildrequires:	latex2html
 BuildRequires:	libglade2.0-devel
-
+BuildRequires:	nss-devel nspr-devel
 
 %description
 SystemTap provides free software (GPL) infrastructure to simplify the gathering
