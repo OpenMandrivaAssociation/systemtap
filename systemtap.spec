@@ -2,11 +2,11 @@ Summary: 	Infrastructure to gather information about the running Linux system
 Name: 		systemtap
 Epoch:		1
 Version: 	1.5
-Release: 	%mkrel 1
+Release: 	1
 License: 	GPLv2+
 Group: 		Development/Kernel
 URL: 		http://sourceware.org/systemtap/
-Source:		ftp://sourceware.org/pub/%{name}/releases/%{name}-%{version}.tar.gz
+Source0:	ftp://sourceware.org/pub/%{name}/releases/%{name}-%{version}.tar.gz
 
 Buildrequires:	libcap-devel
 Buildrequires:	elfutils-static-devel
@@ -14,7 +14,6 @@ BuildRequires:	gtkmm2.4-devel
 Buildrequires:	libavahi-client-devel
 Buildrequires:	latex2html
 BuildRequires:	libglade2.0-devel
-BuildRoot: 	%{_tmppath}/%{name}-%{version}-%{release}-root
 
 
 %description
@@ -35,29 +34,19 @@ Current project members include Red Hat, IBM, Intel, and Hitachi.
 
 
 %prep
-
 %setup -q
 
 %build
 %configure2_5x --without-rpm
 %make
 
-
 %install
-rm -rf $RPM_BUILD_ROOT
-# cd src
 %makeinstall
 
 # we add testsuite with a lot of examples
 install -m 766 -d testsuite $RPM_BUILD_ROOT/%{_datadir}/%{name}/
 
-
-%clean
-rm -rf $RPM_BUILD_ROOT
-
-
 %files
-%defattr(-,root,root,-)
 %doc AUTHORS INSTALL HACKING README
 %{_bindir}/dtrace
 %{_bindir}/stap*
