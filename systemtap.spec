@@ -2,11 +2,12 @@ Summary: 	Infrastructure to gather information about the running Linux system
 Name: 		systemtap
 Epoch:		1
 Version: 	1.5
-Release: 	1
+Release: 	2
 License: 	GPLv2+
 Group: 		Development/Kernel
 URL: 		http://sourceware.org/systemtap/
 Source0:	ftp://sourceware.org/pub/%{name}/releases/%{name}-%{version}.tar.gz
+Patch0:		systemtap-1.5-rpm5-support.patch
 
 Buildrequires:	libcap-devel
 Buildrequires:	elfutils-static-devel
@@ -15,6 +16,7 @@ Buildrequires:	libavahi-client-devel
 Buildrequires:	latex2html
 BuildRequires:	libglade2.0-devel
 BuildRequires:	nss-devel nspr-devel
+BuildRequires:	rpm-devel
 
 %description
 SystemTap provides free software (GPL) infrastructure to simplify the gathering
@@ -35,9 +37,11 @@ Current project members include Red Hat, IBM, Intel, and Hitachi.
 
 %prep
 %setup -q
+%patch0 -p1 -b .rpm5~
+autoreconf -f
 
 %build
-%configure2_5x --without-rpm
+%configure2_5x	--with-rpm
 %make
 
 %install
