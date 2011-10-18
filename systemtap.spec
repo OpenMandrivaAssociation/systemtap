@@ -45,7 +45,7 @@ autoreconf -f
 
 %build
 %configure2_5x	--with-rpm
-%make
+make
 
 %install
 %makeinstall
