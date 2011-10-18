@@ -8,8 +8,6 @@ Group: 		Development/Kernel
 URL: 		http://sourceware.org/systemtap/
 Source0:	ftp://sourceware.org/pub/%{name}/releases/%{name}-%{version}.tar.gz
 Patch0:		systemtap-1.5-rpm5-support.patch
-
-Buildrequires:	libcap-devel
 Buildrequires:	elfutils-static-devel
 BuildRequires:	gtkmm2.4-devel
 Buildrequires:	libavahi-client-devel
@@ -17,6 +15,11 @@ Buildrequires:	latex2html
 BuildRequires:	libglade2.0-devel
 BuildRequires:	nss-devel nspr-devel
 BuildRequires:	rpm-devel
+BuildRequires:	pkg-config
+BuildRequires:	gettext gettext-devel
+BuildRequires:	xmlto
+BuildRequires:	automake autoconf libtool
+
 
 %description
 SystemTap provides free software (GPL) infrastructure to simplify the gathering
