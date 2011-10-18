@@ -15,7 +15,7 @@ Buildrequires:	latex2html
 BuildRequires:	libglade2.0-devel
 BuildRequires:	nss-devel nspr-devel
 BuildRequires:	rpm-devel
-BuildRequires:	pkg-config
+BuildRequires:	pkgconfig
 BuildRequires:	gettext gettext-devel
 BuildRequires:	xmlto
 BuildRequires:	automake autoconf libtool
