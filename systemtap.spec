@@ -51,7 +51,7 @@ make
 %makeinstall
 
 # we add testsuite with a lot of examples
-install -m 766 -d testsuite $RPM_BUILD_ROOT/%{_datadir}/%{name}/
+install -m 766 -d testsuite %{buildroot}/%{_datadir}/%{name}/
 
 %files
 %doc AUTHORS INSTALL HACKING README
