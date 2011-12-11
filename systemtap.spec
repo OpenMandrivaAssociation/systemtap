@@ -18,6 +18,7 @@ BuildRequires:	rpm-devel
 BuildRequires:	pkgconfig
 BuildRequires:	gettext gettext-devel
 BuildRequires:	xmlto
+BuildRequires:	texlive
 BuildRequires:	automake autoconf libtool
 
 
