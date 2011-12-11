@@ -18,8 +18,6 @@ BuildRequires:	rpm-devel
 BuildRequires:	pkgconfig
 BuildRequires:	gettext gettext-devel
 BuildRequires:	xmlto
-BuildRequires:	docbook-dtd-xml
-BuildRequires:	texlive
 BuildRequires:	automake autoconf libtool
 
 
