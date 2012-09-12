@@ -8,17 +8,18 @@ Group: 		Development/Kernel
 URL: 		http://sourceware.org/systemtap/
 Source0:	ftp://sourceware.org/pub/%{name}/releases/%{name}-%{version}.tar.gz
 Patch0:		systemtap-1.5-rpm5-support.patch
+Patch1:		systemtap-1.7-automake1.12.patch
 Buildrequires:	elfutils-static-devel
 BuildRequires:	gtkmm2.4-devel
 Buildrequires:	libavahi-client-devel
-Buildrequires:	latex2html
+#Buildrequires:	latex2html
 BuildRequires:	libglade2.0-devel
 BuildRequires:	nss-devel nspr-devel
 BuildRequires:	rpm-devel
 BuildRequires:	pkgconfig
 BuildRequires:	gettext gettext-devel
-BuildRequires:	xmlto
-BuildRequires:	texlive
+#BuildRequires:	xmlto
+#BuildRequires:	texlive
 BuildRequires:	automake autoconf libtool
 
 
@@ -42,9 +43,26 @@ Current project members include Red Hat, IBM, Intel, and Hitachi.
 %prep
 %setup -q
 %patch0 -p1 -b .rpm5~
-autoreconf -f
+%patch1 -p1 -b .automake~
 
 %build
+sed -i \
+        -e 's:-Werror::g' \
+        configure.ac Makefile.am \
+        grapher/Makefile.am \
+        runtime/staprun/Makefile.am \
+        buildrun.cxx \
+        runtime/bench2/bench.rb \
+        runtime/bench2/Makefile \
+        testsuite/systemtap.unprivileged/unprivileged_probes.exp \
+        testsuite/systemtap.unprivileged/unprivileged_myproc.exp \
+        testsuite/systemtap.base/stmt_rel_user.exp \
+        testsuite/systemtap.base/sdt_va_args.exp \
+        testsuite/systemtap.base/sdt_misc.exp \
+        testsuite/systemtap.base/sdt.exp \
+        scripts/kprobes_test/gen_code.py
+
+autoreconf -f
 %configure2_5x	--with-rpm
 make
 
