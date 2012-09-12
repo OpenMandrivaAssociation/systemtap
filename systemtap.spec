@@ -12,14 +12,14 @@ Patch1:		systemtap-1.7-automake1.12.patch
 Buildrequires:	elfutils-static-devel
 BuildRequires:	gtkmm2.4-devel
 Buildrequires:	libavahi-client-devel
-#Buildrequires:	latex2html
+Buildrequires:	latex2html
 BuildRequires:	libglade2.0-devel
 BuildRequires:	nss-devel nspr-devel
 BuildRequires:	rpm-devel
 BuildRequires:	pkgconfig
 BuildRequires:	gettext gettext-devel
-#BuildRequires:	xmlto
-#BuildRequires:	texlive
+BuildRequires:	xmlto
+BuildRequires:	texlive
 BuildRequires:	automake autoconf libtool
 
 
