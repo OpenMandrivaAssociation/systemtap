@@ -62,7 +62,7 @@ sed -i \
         testsuite/systemtap.base/sdt.exp \
         scripts/kprobes_test/gen_code.py
 
-autoreconf -f
+autoreconf -f --warnings=none
 %configure2_5x	--with-rpm
 make
 
