@@ -62,7 +62,10 @@ sed -i \
         testsuite/systemtap.base/sdt.exp \
         scripts/kprobes_test/gen_code.py
 
-autoreconf -f --warnings=none
+# (tpg) for new automake
+sed -i -e 's/AM_PROG_CC_STDC/AC_PROG_CC/g' configure.ac
+
+autoreconf -fi
 %configure2_5x	--with-rpm
 make
 
