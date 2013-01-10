@@ -1,27 +1,26 @@
-Summary: 	Infrastructure to gather information about the running Linux system
-Name: 		systemtap
+Summary:	Infrastructure to gather information about the running Linux system
+Name:		systemtap
 Epoch:		1
-Version: 	1.7
-Release: 	2
-License: 	GPLv2+
-Group: 		Development/Kernel
-URL: 		http://sourceware.org/systemtap/
-Source0:	ftp://sourceware.org/pub/%{name}/releases/%{name}-%{version}.tar.gz
-Patch0:		systemtap-1.5-rpm5-support.patch
-Patch1:		systemtap-1.7-automake1.12.patch
+Version:	2.0
+Release:	1
+License:	GPLv2+
+Group:		Development/Kernel
+URL:		http://sourceware.org/systemtap/
+Source0:	http://sourceware.org/systemtap/ftp/releases/%{name}-%{version}.tar.gz
 Buildrequires:	elfutils-static-devel
 BuildRequires:	gtkmm2.4-devel
 Buildrequires:	libavahi-client-devel
 Buildrequires:	latex2html
 BuildRequires:	libglade2.0-devel
-BuildRequires:	nss-devel nspr-devel
+BuildRequires:	nss-devel
+BuildRequires:	nspr-devel
 BuildRequires:	rpm-devel
 BuildRequires:	pkgconfig
-BuildRequires:	gettext gettext-devel
+BuildRequires:	gettext
+BuildRequires:	gettext-devel
 BuildRequires:	xmlto
 BuildRequires:	texlive
-BuildRequires:	automake autoconf libtool
-
+BuildRequires:	libcap-devel
 
 %description
 SystemTap provides free software (GPL) infrastructure to simplify the gathering
@@ -42,8 +41,8 @@ Current project members include Red Hat, IBM, Intel, and Hitachi.
 
 %prep
 %setup -q
-%patch0 -p1 -b .rpm5~
-%patch1 -p1 -b .automake~
+#patch0 -p1 -b .rpm5~
+#patch1 -p1 -b .automake~
 
 %build
 sed -i \
@@ -63,11 +62,14 @@ sed -i \
         scripts/kprobes_test/gen_code.py
 
 # (tpg) for new automake
-sed -i -e 's/AM_PROG_CC_STDC/AC_PROG_CC/g' configure.ac
+#sed -i -e 's/AM_PROG_CC_STDC/AC_PROG_CC/g' configure.ac
 
-autoreconf -fi
-%configure2_5x	--with-rpm
-make
+#autoreconf -fi
+%configure2_5x	\
+	--with-rpm \
+	--disable-rpath
+
+%make
 
 %install
 %makeinstall
