@@ -7,6 +7,7 @@ License:	GPLv2+
 Group:		Development/Kernel
 URL:		http://sourceware.org/systemtap/
 Source0:	http://sourceware.org/systemtap/ftp/releases/%{name}-%{version}.tar.gz
+Patch2:		systemtap-2.0-rpmlib.h.patch
 Buildrequires:	elfutils-static-devel
 BuildRequires:	gtkmm2.4-devel
 Buildrequires:	libavahi-client-devel
@@ -41,8 +42,7 @@ Current project members include Red Hat, IBM, Intel, and Hitachi.
 
 %prep
 %setup -q
-#patch0 -p1 -b .rpm5~
-#patch1 -p1 -b .automake~
+%apply_patches
 
 %build
 %configure2_5x	\
