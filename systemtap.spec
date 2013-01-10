@@ -45,26 +45,6 @@ Current project members include Red Hat, IBM, Intel, and Hitachi.
 #patch1 -p1 -b .automake~
 
 %build
-sed -i \
-        -e 's:-Werror::g' \
-        configure.ac Makefile.am \
-        grapher/Makefile.am \
-        runtime/staprun/Makefile.am \
-        buildrun.cxx \
-        runtime/bench2/bench.rb \
-        runtime/bench2/Makefile \
-        testsuite/systemtap.unprivileged/unprivileged_probes.exp \
-        testsuite/systemtap.unprivileged/unprivileged_myproc.exp \
-        testsuite/systemtap.base/stmt_rel_user.exp \
-        testsuite/systemtap.base/sdt_va_args.exp \
-        testsuite/systemtap.base/sdt_misc.exp \
-        testsuite/systemtap.base/sdt.exp \
-        scripts/kprobes_test/gen_code.py
-
-# (tpg) for new automake
-#sed -i -e 's/AM_PROG_CC_STDC/AC_PROG_CC/g' configure.ac
-
-#autoreconf -fi
 %configure2_5x	\
 	--with-rpm \
 	--disable-rpath
