@@ -10,8 +10,8 @@ Source0:	http://sourceware.org/systemtap/ftp/releases/%{name}-%{version}.tar.gz
 Patch2:		systemtap-2.0-rpmlib.h.patch
 Buildrequires:	elfutils-static-devel
 BuildRequires:	gtkmm2.4-devel
-Buildrequires:	libavahi-client-devel
-Buildrequires:	latex2html
+BuildRequires:	libavahi-client-devel
+BuildRequires:	latex2html
 BuildRequires:	libglade2.0-devel
 BuildRequires:	nss-devel
 BuildRequires:	nspr-devel
