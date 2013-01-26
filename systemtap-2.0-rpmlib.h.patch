@@ -1,14 +1,14 @@
 diff -Naur systemtap-2.0/rpm_finder.cxx systemtap-2.0.tpg/rpm_finder.cxx
 --- systemtap-2.0/rpm_finder.cxx	2012-10-10 00:08:59.000000000 +0000
-+++ systemtap-2.0.tpg/rpm_finder.cxx	2013-01-25 21:30:54.772093960 +0000
++++ systemtap-2.0.tpg/rpm_finder.cxx	2013-01-26 09:27:45.423299434 +0000
 @@ -24,7 +24,9 @@
  
  #define _RPM_4_4_COMPAT
  #include <string.h>
 -#include <rpm/rpmlib.h>
 +#include <rpm/rpmevr.h>
-+#include <rpm/rpmpgp.h>
 +#include <rpm/rpmiotypes.h>
++#include <rpm/rpmpgp.h>
  #include <rpm/rpmts.h>
  #include <rpm/rpmdb.h>
  #include <rpm/header.h>
