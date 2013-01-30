@@ -7,6 +7,7 @@ diff -Naur systemtap-2.0/rpm_finder.cxx systemtap-2.0.tpg/rpm_finder.cxx
  #include <string.h>
 -#include <rpm/rpmlib.h>
 +#include <rpm/rpmevr.h>
++#include <rpmtypes.h>
 +#include <rpm/rpmiotypes.h>
 +#include <rpm/rpmpgp.h>
  #include <rpm/rpmts.h>
