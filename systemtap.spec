@@ -12,11 +12,10 @@ Buildrequires:	elfutils-static-devel
 BuildRequires:	gtkmm2.4-devel
 BuildRequires:	libavahi-client-devel
 BuildRequires:	latex2html
-BuildRequires:	libglade2.0-devel
+BuildRequires:	pkgconfig(libglade-2.0)
 BuildRequires:	nss-devel
 BuildRequires:	nspr-devel
 BuildRequires:	rpm-devel
-BuildRequires:	pkgconfig
 BuildRequires:	gettext
 BuildRequires:	gettext-devel
 BuildRequires:	xmlto
