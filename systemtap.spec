@@ -1,7 +1,7 @@
 Summary:	Infrastructure to gather information about the running Linux system
 Name:		systemtap
 Epoch:		1
-Version:	2.0
+Version:	2.1
 Release:	1
 License:	GPLv2+
 Group:		Development/Kernel
