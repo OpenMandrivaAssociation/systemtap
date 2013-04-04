@@ -10,7 +10,7 @@ Source0:	http://sourceware.org/systemtap/ftp/releases/%{name}-%{version}.tar.gz
 Patch2:		systemtap-2.0-rpmlib.h.patch
 Buildrequires:	elfutils-static-devel
 BuildRequires:	gtkmm2.4-devel
-BuildRequires:	libavahi-client-devel
+BuildRequires:	avahi-client-devel
 BuildRequires:	latex2html
 BuildRequires:	pkgconfig(libglade-2.0)
 BuildRequires:	nss-devel
@@ -44,6 +44,8 @@ Current project members include Red Hat, IBM, Intel, and Hitachi.
 %apply_patches
 
 %build
+export CFLAGS="%{optflags} -I/usr/include/rpm"
+export CXXFLAGS="%{optflags} -I/usr/include/rpm"
 #fix build with new automake
 sed -i -e 's,AM_PROG_CC_STDC,AC_PROG_CC,g' configure.*
 autoreconf -fi
