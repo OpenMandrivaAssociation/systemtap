@@ -1,0 +1,18 @@
+--- systemtap-2.1/rpm_finder.cxx.orig	2013-04-04 12:59:31.369345383 +0100
++++ systemtap-2.1/rpm_finder.cxx	2013-04-04 12:59:56.034343942 +0100
+@@ -24,10 +24,13 @@
+ 
+ #define _RPM_4_4_COMPAT
+ #include <string.h>
+-#include <rpm/rpmlib.h>
++#include <rpm/rpmevr.h>
++#include <rpm/rpmtypes.h>
++#include <rpm/rpmiotypes.h>
++#include <rpm/rpmpgp.h>
+ #include <rpm/rpmts.h>
+ #include <rpm/rpmdb.h>
+-#include <rpm/header.h>
++#include <rpm/rpmtag.h>
+ 
+ #ifndef xfree
+ #define xfree free

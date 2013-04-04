@@ -7,7 +7,7 @@ License:	GPLv2+
 Group:		Development/Kernel
 URL:		http://sourceware.org/systemtap/
 Source0:	http://sourceware.org/systemtap/ftp/releases/%{name}-%{version}.tar.gz
-Patch2:		systemtap-2.0-rpmlib.h.patch
+Patch2:		systemtap-2.1-rpmlib.h.patch
 Buildrequires:	elfutils-static-devel
 BuildRequires:	gtkmm2.4-devel
 BuildRequires:	avahi-client-devel
