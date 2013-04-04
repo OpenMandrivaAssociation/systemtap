@@ -1,6 +1,6 @@
---- systemtap-2.1/rpm_finder.cxx.orig	2013-04-04 12:59:31.369345383 +0100
-+++ systemtap-2.1/rpm_finder.cxx	2013-04-04 14:12:49.744083988 +0100
-@@ -24,10 +24,7 @@
+--- rpm_finder.cxx.orig	2013-04-04 12:59:31.369345383 +0100
++++ rpm_finder.cxx	2013-04-04 20:23:36.579273190 +0100
+@@ -24,10 +24,6 @@
  
  #define _RPM_4_4_COMPAT
  #include <string.h>
@@ -8,7 +8,15 @@
 -#include <rpm/rpmts.h>
 -#include <rpm/rpmdb.h>
 -#include <rpm/header.h>
-+#include <rpm/rpm4compat.h>
  
  #ifndef xfree
  #define xfree free
+@@ -35,6 +31,8 @@
+ 
+ }
+ 
++#include <rpm/rpm4compat.h>
++
+ #if ! HAVE_LIBRPMIO && HAVE_NSS
+ extern "C" {
+ #include <nss.h>
