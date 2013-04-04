@@ -15,7 +15,6 @@ BuildRequires:	latex2html
 BuildRequires:	pkgconfig(libglade-2.0)
 BuildRequires:	nss-devel
 BuildRequires:	nspr-devel
-BuildRequires:	rpm-devel
 BuildRequires:	gettext
 BuildRequires:	gettext-devel
 BuildRequires:	xmlto
@@ -50,7 +49,6 @@ export CXXFLAGS="%{optflags} -fno-strict-aliasing -I/usr/include/rpm"
 sed -i -e 's,AM_PROG_CC_STDC,AC_PROG_CC,g' configure.*
 autoreconf -fi
 %configure2_5x	\
-	--with-rpm \
 	--disable-rpath
 
 %make
