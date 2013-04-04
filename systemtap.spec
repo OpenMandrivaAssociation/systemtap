@@ -44,8 +44,8 @@ Current project members include Red Hat, IBM, Intel, and Hitachi.
 %apply_patches
 
 %build
-export CFLAGS="%{optflags} -I/usr/include/rpm"
-export CXXFLAGS="%{optflags} -I/usr/include/rpm"
+export CFLAGS="%{optflags} -fno-strict-aliasing -I/usr/include/rpm"
+export CXXFLAGS="%{optflags} -fno-strict-aliasing -I/usr/include/rpm"
 #fix build with new automake
 sed -i -e 's,AM_PROG_CC_STDC,AC_PROG_CC,g' configure.*
 autoreconf -fi
