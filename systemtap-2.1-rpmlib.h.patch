@@ -1,5 +1,5 @@
---- rpm_finder.cxx.orig	2013-04-04 12:59:31.369345383 +0100
-+++ rpm_finder.cxx	2013-04-04 20:23:36.579273190 +0100
+--- systemtap-2.1/rpm_finder.cxx.orig	2013-04-04 12:59:31.369345383 +0100
++++ systemtap-2.1/rpm_finder.cxx	2013-04-04 20:23:36.579273190 +0100
 @@ -24,10 +24,6 @@
  
  #define _RPM_4_4_COMPAT
