@@ -19,7 +19,7 @@ BuildRequires:	gettext
 BuildRequires:	gettext-devel
 BuildRequires:	xmlto
 BuildRequires:	texlive
-BuildRequires:	libcap-devel
+BuildRequires:	cap-devel = 2.22-5
 
 %description
 SystemTap provides free software (GPL) infrastructure to simplify the gathering
