@@ -1,13 +1,13 @@
 Summary:	Infrastructure to gather information about the running Linux system
 Name:		systemtap
 Epoch:		1
-Version:	2.1
-Release:	2
+Version:	2.2
+Release:	1
 License:	GPLv2+
 Group:		Development/Kernel
 URL:		http://sourceware.org/systemtap/
 Source0:	http://sourceware.org/systemtap/ftp/releases/%{name}-%{version}.tar.gz
-Patch2:		systemtap-2.1-rpmlib.h.patch
+Patch2:		systemtap-2.2-rpm5.patch
 Buildrequires:	elfutils-static-devel
 BuildRequires:	gtkmm2.4-devel
 BuildRequires:	avahi-client-devel
@@ -41,12 +41,11 @@ Current project members include Red Hat, IBM, Intel, and Hitachi.
 %prep
 %setup -q
 %apply_patches
+autoreconf -fi
 
 %build
-export CFLAGS="%{optflags} -fno-strict-aliasing -I/usr/include/rpm"
-export CXXFLAGS="%{optflags} -fno-strict-aliasing -I/usr/include/rpm"
-%configure2_5x	\
-	--disable-rpath
+%configure2_5x	--with-rpm \
+		--without-selinux
 
 %make
 
