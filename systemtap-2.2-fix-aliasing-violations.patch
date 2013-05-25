@@ -1,0 +1,33 @@
+--- systemtap-2.2/remote.cxx~	2013-05-25 03:49:18.585367618 +0200
++++ systemtap-2.2/remote.cxx	2013-05-25 03:49:21.421408924 +0200
+@@ -496,13 +496,17 @@ class unix_stapsh : public stapsh {
+     unix_stapsh(systemtap_session& s, const uri_decoder& ud)
+       : stapsh(s)
+       {
+-        sockaddr_un server;
+-        server.sun_family = AF_UNIX;
++	union {
++	    sockaddr_un un;
++	    sockaddr sa;
++	} server;
++
++        server.un.sun_family = AF_UNIX;
+         if (ud.path.empty())
+           throw runtime_error(_("unix target requires a /path"));
+-        if (ud.path.size() > sizeof(server.sun_path) - 1)
++        if (ud.path.size() > sizeof(server.un.sun_path) - 1)
+           throw runtime_error(_("unix target /path is too long"));
+-        strcpy(server.sun_path, ud.path.c_str());
++        strcpy(server.un.sun_path, ud.path.c_str());
+ 
+         if (ud.has_authority)
+           throw runtime_error(_("unix target doesn't support a hostname"));
+@@ -515,7 +519,7 @@ class unix_stapsh : public stapsh {
+         if (fd <= 0)
+           throw runtime_error(_("error opening a socket"));
+ 
+-        if (connect(fd, (struct sockaddr *)&server, SUN_LEN(&server)) < 0)
++        if (connect(fd, &server.sa, SUN_LEN(&server.un)) < 0)
+           {
+             const char *msg = strerror(errno);
+             ::close(fd);
