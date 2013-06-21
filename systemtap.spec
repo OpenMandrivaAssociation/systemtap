@@ -46,7 +46,7 @@ This package contains the runtime environment for systemtap programs.
 %package server
 Summary:	Systemtap server
 Group:		Development/Other
-Requires:	%{name} = %{version}-%{release}
+Requires:	%{name} = %{EVRD}
 Conflicts:	systemtap < 1:2.1-3
 
 %description server
@@ -56,7 +56,7 @@ This package contains the server component of systemtap.
 %package devel
 Summary:	Header files for %{name}
 Group:		Development/Other
-Requires:	%{name} = %{version}-%{release}
+Requires:	%{name} = %{EVRD}
 Conflicts:	systemtap < 1:2.1-3
 
 %description devel
