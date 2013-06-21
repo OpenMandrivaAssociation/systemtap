@@ -1,0 +1,24 @@
+--- systemtap-2.2/configure.ac.am13~	2013-05-25 03:39:28.158428355 +0000
++++ systemtap-2.2/configure.ac	2013-05-25 03:39:30.960451163 +0000
+@@ -10,19 +10,18 @@ AC_CANONICAL_TARGET
+ 
+ AC_PREREQ(2.63)
+ dnl We don't maintain a ChangeLog, which makes us non-GNU -> foreign.
+-AM_INIT_AUTOMAKE([no-dist foreign])
++AM_INIT_AUTOMAKE
+ AM_MAINTAINER_MODE
+ 
+ m4_ifdef([AM_SILENT_RULES],[AM_SILENT_RULES([yes])])
+ 
+ AC_USE_SYSTEM_EXTENSIONS
+-AM_PROG_MKDIR_P
++AC_PROG_MKDIR_P
+ AC_SUBST(MKDIR_P)
+ AC_PROG_LN_S
+ AC_PROG_CC
+ AC_PROG_CXX
+ AC_PROG_CPP
+-AM_PROG_CC_STDC
+ AM_PROG_CC_C_O
+ AC_PROG_RANLIB
+ AC_OBJEXT
