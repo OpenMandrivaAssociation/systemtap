@@ -11,16 +11,16 @@ Patch2:		systemtap-2.2-rpm5.patch
 Patch3:		systemtap-2.2-fix-aliasing-violations.patch
 Patch4:		systemtap-2.2-automake1.3-fix.patch
 Buildrequires:	elfutils-devel
-BuildRequires:	gtkmm2.4-devel
-BuildRequires:	avahi-client-devel
+BuildRequires:	pkgconfig(gtkmm-2.4)
+BuildRequires:	pkgconfig(avahi-client)
 BuildRequires:	latex2html
 BuildRequires:	pkgconfig(libglade-2.0)
-BuildRequires:	nss-devel
-BuildRequires:	nspr-devel
+BuildRequires:	pkgconfig(nss)
+BuildRequires:	pkgconfig(nspr)
 BuildRequires:	gettext
 BuildRequires:	gettext-devel
 BuildRequires:	xmlto
-BuildRequires:	texlive
+BuildRequires:	texlive-dvips
 BuildRequires:	cap-devel = 2.22-5
 
 %description
