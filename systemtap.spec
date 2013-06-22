@@ -59,7 +59,9 @@ autoreconf -fi
 # we add testsuite with a lot of examples
 install -m 766 -d testsuite %{buildroot}%{_datadir}/%{name}/
 
-%files
+%find_lang %{name}
+
+%files -f %{name}.lang
 %doc AUTHORS HACKING README
 %{_bindir}/dtrace
 %{_bindir}/stap*
@@ -68,4 +70,3 @@ install -m 766 -d testsuite %{buildroot}%{_datadir}/%{name}/
 %{_datadir}/%{name}/*
 %{_includedir}/sys/sdt.h
 %{_includedir}/sys/sdt-config.h
-%{_localedir}/*/LC_MESSAGES/systemtap.mo
