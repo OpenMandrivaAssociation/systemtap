@@ -57,10 +57,10 @@ autoreconf -fi
 %makeinstall
 
 # we add testsuite with a lot of examples
-install -m 766 -d testsuite %{buildroot}/%{_datadir}/%{name}/
+install -m 766 -d testsuite %{buildroot}%{_datadir}/%{name}/
 
 %files
-%doc AUTHORS INSTALL HACKING README
+%doc AUTHORS HACKING README
 %{_bindir}/dtrace
 %{_bindir}/stap*
 %{_mandir}/man*/*
