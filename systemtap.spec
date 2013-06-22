@@ -10,7 +10,7 @@ Source0:	http://sourceware.org/systemtap/ftp/releases/%{name}-%{version}.tar.gz
 Patch2:		systemtap-2.2-rpm5.patch
 Patch3:		systemtap-2.2-fix-aliasing-violations.patch
 Patch4:		systemtap-2.2-automake1.3-fix.patch
-Buildrequires:	elfutils-static-devel
+Buildrequires:	elfutils-devel
 BuildRequires:	gtkmm2.4-devel
 BuildRequires:	avahi-client-devel
 BuildRequires:	latex2html
