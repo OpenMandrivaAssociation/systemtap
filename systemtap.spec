@@ -98,6 +98,7 @@ install -m 766 -d testsuite %{buildroot}/%{_datadir}/%{name}/
 %{_libexecdir}/%{name}/stap-env
 %{_libexecdir}/%{name}/stap-authorize-cert
 %{_mandir}/man8/staprun.8*
+%{_mandir}/man8/stapsh.8.*
 
 %files server
 %{_bindir}/stap-server
