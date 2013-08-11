@@ -2,10 +2,10 @@ Summary:	Infrastructure to gather information about the running Linux system
 Name:		systemtap
 Epoch:		1
 Version:	2.3
-Release:	1
+Release:	2
 License:	GPLv2+
 Group:		Development/Kernel
-URL:		http://sourceware.org/systemtap/
+Url:		http://sourceware.org/systemtap/
 Source0:	http://sourceware.org/systemtap/ftp/releases/%{name}-%{version}.tar.gz
 Patch2:		systemtap-2.2-rpm5.patch
 Patch3:		systemtap-2.2-fix-aliasing-violations.patch
@@ -22,6 +22,13 @@ BuildRequires:	gettext-devel
 BuildRequires:	xmlto
 BuildRequires:	texlive-dvips
 BuildRequires:	cap-devel = 2.22-5
+Buildrequires:	elfutils-devel
+BuildRequires:	gettext-devel
+BuildRequires:	pkgconfig(avahi-client)
+BuildRequires:	pkgconfig(gtkmm-2.4)
+BuildRequires:	pkgconfig(libglade-2.0)
+BuildRequires:	pkgconfig(nspr)
+BuildRequires:	pkgconfig(nss)
 
 %description
 SystemTap provides free software (GPL) infrastructure to simplify the gathering
@@ -39,6 +46,33 @@ Oprofile and LTT.
 
 Current project members include Red Hat, IBM, Intel, and Hitachi.
 
+%package	runtime
+Summary:	Runtime environment for systemtap
+Group:		Development/Other
+Conflicts:	systemtap < 1:2.1-3
+
+%description	runtime
+SystemTap is an instrumentation system for systems running Linux.
+This package contains the runtime environment for systemtap programs.
+
+%package	server
+Summary:	Systemtap server
+Group:		Development/Other
+Requires:	%{name} = %{EVRD}
+Conflicts:	systemtap < 1:2.1-3
+
+%description	server
+SystemTap is an instrumentation system for systems running Linux.
+This package contains the server component of systemtap.
+
+%package	devel
+Summary:	Header files for %{name}
+Group:		Development/Other
+Requires:	%{name} = %{EVRD}
+Conflicts:	systemtap < 1:2.1-3
+
+%description devel
+The package includes the header files for %{name}.
 
 %prep
 %setup -q
@@ -61,12 +95,36 @@ install -m 766 -d testsuite %{buildroot}%{_datadir}/%{name}/
 
 %find_lang %{name}
 
-%files -f %{name}.lang
-%doc AUTHORS HACKING README
+%files
+%{_bindir}/stap
+%{_mandir}/man[17]/*
+%dir %{_datadir}/%{name}
+%{_datadir}/%{name}/tapset
+
+%files runtime -f systemtap.lang
+%doc %{_docdir}/systemtap
+%{_bindir}/staprun
+%{_bindir}/stapsh
+%{_bindir}/stap-merge
+%{_bindir}/stap-report
+%dir %{_libexecdir}/%{name}
+%{_libexecdir}/%{name}/stapio
+%{_libexecdir}/%{name}/stap-env
+%{_libexecdir}/%{name}/stap-authorize-cert
+%{_mandir}/man8/staprun.8*
+%{_mandir}/man8/stapsh.8.*
+
+%files server
+%{_bindir}/stap-server
+%{_libexecdir}/%{name}/stap-gen-cert
+%{_libexecdir}/%{name}/stap-serverd
+%{_libexecdir}/%{name}/stap-sign-module
+%{_libexecdir}/%{name}/stap-start-server
+%{_libexecdir}/%{name}/stap-stop-server
+%{_mandir}/man8/stap-server.8*
+
+%files devel
 %{_bindir}/dtrace
-%{_bindir}/stap*
-%{_mandir}/man*/*
-%{_libdir}/%{name}/*
-%{_datadir}/%{name}/*
-%{_includedir}/sys/sdt.h
-%{_includedir}/sys/sdt-config.h
+%{_includedir}/sys/*.h
+%{_datadir}/%{name}/runtime
+%{_mandir}/man3/*.3*
