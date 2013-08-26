@@ -1,3 +1,5 @@
+%bcond_without	java
+
 Summary:	Infrastructure to gather information about the running Linux system
 Name:		systemtap
 Epoch:		1
@@ -29,6 +31,9 @@ BuildRequires:	pkgconfig(gtkmm-2.4)
 BuildRequires:	pkgconfig(libglade-2.0)
 BuildRequires:	pkgconfig(nspr)
 BuildRequires:	pkgconfig(nss)
+%if %{with_java}
+BuildRequires:	jpackage-utils java-devel
+%endif
 
 %description
 SystemTap provides free software (GPL) infrastructure to simplify the gathering
@@ -54,6 +59,20 @@ Conflicts:	systemtap < 1:2.1-3
 %description	runtime
 SystemTap is an instrumentation system for systems running Linux.
 This package contains the runtime environment for systemtap programs.
+
+%if %{with java}
+%package	runtime-java
+Summary:	Systemtap Java Runtime Support
+Group:		Development/Java
+Requires:	systemtap-runtime = %{EVRD}
+# Not packaged yet..
+#Requires:	byteman > 2.0
+
+%description	runtime-java
+This package includes support files needed to run systemtap scripts
+that probe Java processes running on the OpenJDK 1.6 and OpenJDK 1.7
+runtimes using Byteman.
+%endif
 
 %package	server
 Summary:	Systemtap server
@@ -83,8 +102,8 @@ autoreconf -fi
 %build
 %global optflags %{optflags} -Wno-error
 %configure2_5x	--with-rpm \
-		--without-selinux
-
+		--without-selinux \
+		--with-java=%{_jvmdir}/java
 %make
 
 %install
@@ -113,6 +132,14 @@ install -m 766 -d testsuite %{buildroot}%{_datadir}/%{name}/
 %{_libexecdir}/%{name}/stap-authorize-cert
 %{_mandir}/man8/staprun.8*
 %{_mandir}/man8/stapsh.8.*
+
+%if %{with java}
+%files runtime-java
+%dir %{_libexecdir}/systemtap
+%{_libexecdir}/systemtap/libHelperSDT_*.so
+%{_libexecdir}/systemtap/HelperSDT.jar
+%{_libexecdir}/systemtap/stapbm
+%endif
 
 %files server
 %{_bindir}/stap-server
