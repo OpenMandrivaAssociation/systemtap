@@ -31,6 +31,7 @@ BuildRequires:	pkgconfig(gtkmm-2.4)
 BuildRequires:	pkgconfig(libglade-2.0)
 BuildRequires:	pkgconfig(nspr)
 BuildRequires:	pkgconfig(nss)
+BuildRequires:	pkgconfig(sqlite3)
 %if %{with_java}
 BuildRequires:	jpackage-utils java-devel
 %endif
@@ -103,7 +104,8 @@ autoreconf -fi
 %global optflags %{optflags} -Wno-error
 %configure2_5x	--with-rpm \
 		--without-selinux \
-		--with-java=%{_jvmdir}/java
+		--with-java=%{_jvmdir}/java \
+		--enable-sqlite
 %make
 
 %install
