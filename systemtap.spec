@@ -22,7 +22,7 @@ BuildRequires:	pkgconfig(nspr)
 BuildRequires:	gettext
 BuildRequires:	gettext-devel
 BuildRequires:	xmlto
-BuildRequires:	texlive-dvips
+BuildRequires:	texlive-dvips texlive-charter
 BuildRequires:	cap-devel
 Buildrequires:	elfutils-devel
 BuildRequires:	gettext-devel
