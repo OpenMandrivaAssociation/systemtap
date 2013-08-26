@@ -21,7 +21,7 @@ BuildRequires:	gettext
 BuildRequires:	gettext-devel
 BuildRequires:	xmlto
 BuildRequires:	texlive-dvips
-BuildRequires:	cap-devel = 2.22-5
+BuildRequires:	cap-devel
 Buildrequires:	elfutils-devel
 BuildRequires:	gettext-devel
 BuildRequires:	pkgconfig(avahi-client)
