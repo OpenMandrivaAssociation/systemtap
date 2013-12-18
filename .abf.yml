@@ -1,5 +1,6 @@
 removed_sources:
   systemtap-2.0.tar.gz: 3d5c456782fcdf32355cf2c32ff13062dd731191
   systemtap-2.1.tar.gz: 4447884d4608ca13bd4e169fbaadade05cc574f1
-sources:
   systemtap-2.3.tar.gz: c7a5adae581dbea2ba4820f0cce9fd6962bc0b86
+sources:
+  systemtap-2.4.tar.gz: 7819b0328db6e7a92ccb15a054e81a25744a4011

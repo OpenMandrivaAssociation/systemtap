@@ -1,15 +1,15 @@
 Summary:	Infrastructure to gather information about the running Linux system
 Name:		systemtap
 Epoch:		1
-Version:	2.3
-Release:	5
+Version:	2.4
+Release:	1
 License:	GPLv2+
 Group:		Development/Kernel
 Url:		http://sourceware.org/systemtap/
 Source0:	http://sourceware.org/systemtap/ftp/releases/%{name}-%{version}.tar.gz
 Patch2:		systemtap-2.1-rpmlib.h.patch
 
-BuildRequires:	cap-devel = 2.22-5
+BuildRequires:	cap-devel
 Buildrequires:	elfutils-devel
 BuildRequires:	gettext-devel
 BuildRequires:	pkgconfig(avahi-client)
