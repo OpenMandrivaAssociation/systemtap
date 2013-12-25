@@ -1,3 +1,5 @@
+%bcond_without	java
+
 Summary:	Infrastructure to gather information about the running Linux system
 Name:		systemtap
 Epoch:		1
@@ -7,16 +9,25 @@ License:	GPLv2+
 Group:		Development/Kernel
 Url:		http://sourceware.org/systemtap/
 Source0:	http://sourceware.org/systemtap/ftp/releases/%{name}-%{version}.tar.gz
-Patch2:		systemtap-2.1-rpmlib.h.patch
+Patch2:		systemtap-2.4-rpm5.patch
+Patch3:		systemtap-2.4-fix-aliasing-violations.patch
 
 BuildRequires:	cap-devel
 Buildrequires:	elfutils-devel
+BuildRequires:	gettext
 BuildRequires:	gettext-devel
+BuildRequires:	latex2html
 BuildRequires:	pkgconfig(avahi-client)
 BuildRequires:	pkgconfig(gtkmm-2.4)
 BuildRequires:	pkgconfig(libglade-2.0)
-BuildRequires:	pkgconfig(nspr)
 BuildRequires:	pkgconfig(nss)
+BuildRequires:	pkgconfig(nspr)
+BuildRequires:	pkgconfig(sqlite3)
+BuildRequires:	xmlto
+BuildRequires:	texlive-dvips texlive-charter texlive-mathdesign
+%if %{with_java}
+BuildRequires:	jpackage-utils java-devel
+%endif
 
 %description
 SystemTap provides free software (GPL) infrastructure to simplify the gathering
@@ -34,50 +45,66 @@ Oprofile and LTT.
 
 Current project members include Red Hat, IBM, Intel, and Hitachi.
 
-%package runtime
+%package	runtime
 Summary:	Runtime environment for systemtap
 Group:		Development/Other
 Conflicts:	systemtap < 1:2.1-3
 
-%description runtime
+%description	runtime
 SystemTap is an instrumentation system for systems running Linux.
 This package contains the runtime environment for systemtap programs.
 
-%package server
+%if %{with java}
+%package	runtime-java
+Summary:	Systemtap Java Runtime Support
+Group:		Development/Java
+Requires:	systemtap-runtime = %{EVRD}
+# Not packaged yet..
+#Requires:	byteman > 2.0
+
+%description	runtime-java
+This package includes support files needed to run systemtap scripts
+that probe Java processes running on the OpenJDK 1.6 and OpenJDK 1.7
+runtimes using Byteman.
+%endif
+
+%package	server
 Summary:	Systemtap server
 Group:		Development/Other
 Requires:	%{name} = %{EVRD}
 Conflicts:	systemtap < 1:2.1-3
 
-%description server
+%description	server
 SystemTap is an instrumentation system for systems running Linux.
 This package contains the server component of systemtap.
 
-%package devel
+%package	devel
 Summary:	Header files for %{name}
 Group:		Development/Other
 Requires:	%{name} = %{EVRD}
 Conflicts:	systemtap < 1:2.1-3
 
-%description devel
+%description	devel
 The package includes the header files for %{name}.
 
 %prep
 %setup -q
 %apply_patches
+autoreconf -fi
 
 %build
-export CFLAGS="%{optflags} -fno-strict-aliasing -I/usr/include/rpm"
-export CXXFLAGS="%{optflags} -fno-strict-aliasing -I/usr/include/rpm"
-%configure2_5x
-
+%global optflags %{optflags} -Wno-error
+%configure2_5x	--with-rpm \
+		--without-selinux \
+		--with-java=%{_jvmdir}/java \
+		--enable-sqlite
 %make
 
 %install
 %makeinstall
 
 # we add testsuite with a lot of examples
-install -m 766 -d testsuite %{buildroot}/%{_datadir}/%{name}/
+install -m 766 -d testsuite %{buildroot}%{_datadir}/%{name}/
 
 %find_lang %{name}
 
@@ -100,6 +127,14 @@ install -m 766 -d testsuite %{buildroot}/%{_datadir}/%{name}/
 %{_mandir}/man8/staprun.8*
 %{_mandir}/man8/stapsh.8.*
 
+%if %{with java}
+%files runtime-java
+%dir %{_libexecdir}/systemtap
+%{_libexecdir}/systemtap/libHelperSDT_*.so
+%{_libexecdir}/systemtap/HelperSDT.jar
+%{_libexecdir}/systemtap/stapbm
+%endif
+
 %files server
 %{_bindir}/stap-server
 %{_libexecdir}/%{name}/stap-gen-cert
@@ -114,4 +149,3 @@ install -m 766 -d testsuite %{buildroot}/%{_datadir}/%{name}/
 %{_includedir}/sys/*.h
 %{_datadir}/%{name}/runtime
 %{_mandir}/man3/*.3*
-
