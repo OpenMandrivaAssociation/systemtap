@@ -9,9 +9,8 @@ License:	GPLv2+
 Group:		Development/Kernel
 Url:		http://sourceware.org/systemtap/
 Source0:	http://sourceware.org/systemtap/ftp/releases/%{name}-%{version}.tar.gz
-Patch2:		systemtap-2.2-rpm5.patch
-Patch3:		systemtap-2.2-fix-aliasing-violations.patch
-Patch4:		systemtap-2.2-automake1.3-fix.patch
+Patch2:		systemtap-2.4-rpm5.patch
+Patch3:		systemtap-2.4-fix-aliasing-violations.patch
 
 BuildRequires:	cap-devel
 Buildrequires:	elfutils-devel
@@ -25,7 +24,7 @@ BuildRequires:	pkgconfig(nss)
 BuildRequires:	pkgconfig(nspr)
 BuildRequires:	pkgconfig(sqlite3)
 BuildRequires:	xmlto
-BuildRequires:	texlive-dvips texlive-charter
+BuildRequires:	texlive-dvips texlive-charter texlive-mathdesign
 %if %{with_java}
 BuildRequires:	jpackage-utils java-devel
 %endif
@@ -91,7 +90,6 @@ The package includes the header files for %{name}.
 %prep
 %setup -q
 %apply_patches
-aclocal --force
 autoreconf -fi
 
 %build
