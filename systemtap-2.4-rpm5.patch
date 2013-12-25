@@ -1,0 +1,86 @@
+--- systemtap-2.4/Makefile.am.rpm5~	2013-11-06 17:33:23.000000000 +0100
++++ systemtap-2.4/Makefile.am	2013-12-25 19:44:25.921264089 +0100
+@@ -122,6 +122,12 @@ stap_CPPFLAGS += $(avahi_CFLAGS)
+ stap_LDADD += $(avahi_LIBS)
+ endif
+ 
++if HAVE_LIBRPM
++stap_CXXFLAGS += $(rpm_CFLAGS)
++stap_CPPFLAGS += $(rpm_CFLAGS)
++stap_LDADD += $(rpm_LIBS)
++endif
++
+ if HAVE_NSS
+ stap_SOURCES += nsscommon.cxx csclient.cxx cscommon.cxx 
+ stap_CFLAGS += $(nss_CFLAGS) -DSTAP
+--- systemtap-2.4/configure.ac.rpm5~	2013-11-06 17:33:23.000000000 +0100
++++ systemtap-2.4/configure.ac	2013-12-25 19:44:25.921264089 +0100
+@@ -388,25 +388,30 @@ fi
+ 
+ 
+ dnl Look for librpm.
++AC_ARG_WITH([nss],
++  AS_HELP_STRING([--without-nss],
++    [Do not use NSS even if present]))
++
++AS_IF([test "x$with_nss" != "xno"], [
++  PKG_CHECK_MODULES([nss], [nss >= 3],
++    [have_nss=yes
++     AC_DEFINE([HAVE_NSS], [1], [Define to 1 if you have the nss libraries.])
++    ], [have_nss=no])
++], [have_nss=no])
++
++AM_CONDITIONAL([HAVE_NSS], [test "${have_nss}" = "yes"])
++
+ AC_ARG_WITH([rpm],
+   [AS_HELP_STRING([--with-rpm],
+                   [query rpm database for missing debuginfos])], [], [with_rpm="auto"])
+-if test "$with_rpm" != "no"; then
+-  AC_CHECK_LIB(rpm, rpmtsInitIterator, [
+-                    AC_DEFINE([HAVE_LIBRPM],[1],[have librpm])
+-                    stap_LIBS="$stap_LIBS -lc -lrpm"
+-                    have_librpm="yes"], [have_librpm="no"])
+-  AC_CHECK_LIB(rpmio, rpmFreeCrypto, [
+-                    AC_DEFINE([HAVE_LIBRPMIO],[1],[have librpmio])
+-                    stap_LIBS="$stap_LIBS -lc -lrpmio"
+-                    have_librpmio="yes"], [have_librpmio="no"])
+-  if test "x$have_librpm" != "xyes" -a "$with_rpm" == "yes"; then
+-     AC_MSG_ERROR([cannot find librpm])
+-  fi
+-  if test "x$have_librpmio" != "xyes" -a "$with_rpm" == "yes"; then
+-     AC_MSG_WARN([cannot find librpmio])
+-  fi
+-fi
++AS_IF([test "x$with_rpm" != "xno"], [
++  PKG_CHECK_MODULES([rpm], [rpm],
++    [have_rpm=yes
++     AC_DEFINE([HAVE_LIBRPM], [1], [Define to 1 if you have the rpm libraries.])
++    ], [have_rpm=no])
++], [have_rpm=no])
++
++AM_CONDITIONAL([HAVE_LIBRPM], [test "${have_rpm}" = "yes"])
+ 
+ 
+ dnl Handle elfutils.  If '--with-elfutils=DIR' wasn't specified, used
+--- systemtap-2.4/rpm_finder.cxx.rpm5~	2013-11-06 17:33:23.000000000 +0100
++++ systemtap-2.4/rpm_finder.cxx	2013-12-25 19:44:25.921264089 +0100
+@@ -24,10 +24,6 @@ extern "C" {
+ 
+ #define _RPM_4_4_COMPAT
+ #include <string.h>
+-#include <rpm/rpmlib.h>
+-#include <rpm/rpmts.h>
+-#include <rpm/rpmdb.h>
+-#include <rpm/header.h>
+ 
+ #ifndef xfree
+ #define xfree free
+@@ -35,6 +31,8 @@ extern "C" {
+ 
+ }
+ 
++#include <rpm/rpm4compat.h>
++
+ #if ! HAVE_LIBRPMIO && HAVE_NSS
+ extern "C" {
+ #include <nss.h>
