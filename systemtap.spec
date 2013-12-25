@@ -3,8 +3,8 @@
 Summary:	Infrastructure to gather information about the running Linux system
 Name:		systemtap
 Epoch:		1
-Version:	2.3
-Release:	2
+Version:	2.4
+Release:	1
 License:	GPLv2+
 Group:		Development/Kernel
 Url:		http://sourceware.org/systemtap/
@@ -12,26 +12,20 @@ Source0:	http://sourceware.org/systemtap/ftp/releases/%{name}-%{version}.tar.gz
 Patch2:		systemtap-2.2-rpm5.patch
 Patch3:		systemtap-2.2-fix-aliasing-violations.patch
 Patch4:		systemtap-2.2-automake1.3-fix.patch
-Buildrequires:	elfutils-devel
-BuildRequires:	pkgconfig(gtkmm-2.4)
-BuildRequires:	pkgconfig(avahi-client)
-BuildRequires:	latex2html
-BuildRequires:	pkgconfig(libglade-2.0)
-BuildRequires:	pkgconfig(nss)
-BuildRequires:	pkgconfig(nspr)
-BuildRequires:	gettext
-BuildRequires:	gettext-devel
-BuildRequires:	xmlto
-BuildRequires:	texlive-dvips texlive-charter
+
 BuildRequires:	cap-devel
 Buildrequires:	elfutils-devel
+BuildRequires:	gettext
 BuildRequires:	gettext-devel
+BuildRequires:	latex2html
 BuildRequires:	pkgconfig(avahi-client)
 BuildRequires:	pkgconfig(gtkmm-2.4)
 BuildRequires:	pkgconfig(libglade-2.0)
-BuildRequires:	pkgconfig(nspr)
 BuildRequires:	pkgconfig(nss)
+BuildRequires:	pkgconfig(nspr)
 BuildRequires:	pkgconfig(sqlite3)
+BuildRequires:	xmlto
+BuildRequires:	texlive-dvips texlive-charter
 %if %{with_java}
 BuildRequires:	jpackage-utils java-devel
 %endif
@@ -91,7 +85,7 @@ Group:		Development/Other
 Requires:	%{name} = %{EVRD}
 Conflicts:	systemtap < 1:2.1-3
 
-%description devel
+%description	devel
 The package includes the header files for %{name}.
 
 %prep
