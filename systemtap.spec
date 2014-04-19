@@ -4,7 +4,7 @@ Summary:	Infrastructure to gather information about the running Linux system
 Name:		systemtap
 Epoch:		1
 Version:	2.4
-Release:	1
+Release:	2
 License:	GPLv2+
 Group:		Development/Kernel
 Url:		http://sourceware.org/systemtap/
@@ -28,6 +28,8 @@ BuildRequires:	texlive-dvips texlive-charter texlive-mathdesign
 %if %{with_java}
 BuildRequires:	jpackage-utils java-devel
 %endif
+
+Provides:	/usr/bin/stap
 
 %description
 SystemTap provides free software (GPL) infrastructure to simplify the gathering
