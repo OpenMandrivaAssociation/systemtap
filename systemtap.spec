@@ -10,7 +10,7 @@ Group:		Development/Kernel
 Url:		http://sourceware.org/systemtap/
 Source0:	http://sourceware.org/systemtap/ftp/releases/%{name}-%{version}.tar.gz
 Patch2:		systemtap-2.4-rpm5.patch
-Patch3:		systemtap-2.4-fix-aliasing-violations.patch
+Patch3:		systemtap-2.5-fix-aliasing-violations.patch
 
 BuildRequires:	cap-devel
 Buildrequires:	elfutils-devel
@@ -99,7 +99,8 @@ autoreconf -fi
 %configure2_5x	--with-rpm \
 		--without-selinux \
 		--with-java=%{_jvmdir}/java \
-		--enable-sqlite
+		--enable-sqlite \
+		--disable-docs
 %make
 
 %install
