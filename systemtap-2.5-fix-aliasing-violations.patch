@@ -1,6 +1,6 @@
---- systemtap-2.4/remote.cxx.0003~	2013-11-06 17:33:23.000000000 +0100
-+++ systemtap-2.4/remote.cxx	2013-12-25 19:25:53.426246635 +0100
-@@ -662,13 +662,16 @@ class unix_stapsh : public stapsh {
+--- systemtap-2.5/remote.cxx.0003~	2014-04-29 22:56:12.000000000 +0200
++++ systemtap-2.5/remote.cxx	2014-06-04 14:09:39.414712556 +0200
+@@ -672,13 +672,16 @@ class unix_stapsh : public stapsh {
          for (unsigned i = 1; i < s.perpass_verbose[4]; i++)
            this->options.push_back("verbose");
  
@@ -21,7 +21,7 @@
  
          if (ud.has_authority)
            throw runtime_error(_("unix target doesn't support a hostname"));
-@@ -681,7 +684,7 @@ class unix_stapsh : public stapsh {
+@@ -691,12 +694,12 @@ class unix_stapsh : public stapsh {
          if (fd <= 0)
            throw runtime_error(_("error opening a socket"));
  
@@ -30,3 +30,9 @@
            {
              const char *msg = strerror(errno);
              ::close(fd);
+             throw runtime_error(_F("error connecting to socket %s: %s",
+-                                    server.sun_path, msg));
++                                    server.un.sun_path, msg));
+           }
+ 
+         // Try to dup it, so class stapsh can have truly separate fds for its
