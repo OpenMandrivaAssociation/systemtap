@@ -1,10 +1,13 @@
 %bcond_without	java
+# systemtap uses nested functions in loc2c.c
+%define __cc gcc
+%define __cxx g++
 
 Summary:	Infrastructure to gather information about the running Linux system
 Name:		systemtap
 Epoch:		1
 Version:	2.5
-Release:	2
+Release:	3
 License:	GPLv2+
 Group:		Development/Kernel
 Url:		http://sourceware.org/systemtap/
@@ -96,7 +99,7 @@ autoreconf -fi
 
 %build
 %global optflags %{optflags} -Wno-error
-%configure2_5x	--with-rpm \
+%configure	--with-rpm \
 		--without-selinux \
 		--with-java=%{_jvmdir}/java \
 		--enable-sqlite \
@@ -104,10 +107,13 @@ autoreconf -fi
 %make
 
 %install
-%makeinstall
+%makeinstall_std
 
 # we add testsuite with a lot of examples
 install -m 766 -d testsuite %{buildroot}%{_datadir}/%{name}/
+
+# Let's convert dtrace to Python 3.x...
+2to3 -w %{buildroot}%{_bindir}/dtrace
 
 %find_lang %{name}
 
