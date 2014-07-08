@@ -1,4 +1,8 @@
+%ifnarch aarch64
 %bcond_without	java
+%else
+%bcond_with	java
+%endif
 # systemtap uses nested functions in loc2c.c
 %define __cc gcc
 %define __cxx g++
@@ -103,7 +107,9 @@ autoreconf -fi
 %global optflags %{optflags} -Wno-error
 %configure	--with-rpm \
 		--without-selinux \
+%if %{with java}
 		--with-java=%{_jvmdir}/java \
+%endif
 		--enable-sqlite \
 		--disable-docs
 %make
