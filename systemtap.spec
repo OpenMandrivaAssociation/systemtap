@@ -34,7 +34,7 @@ BuildRequires:	xmlto
 BuildRequires:	texlive-dvips texlive-charter texlive-mathdesign
 # For 2to3
 BuildRequires:	python >= 3.4
-%if %{with_java}
+%if %{with java}
 BuildRequires:	jpackage-utils java-devel
 %endif
 
