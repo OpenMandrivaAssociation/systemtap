@@ -31,6 +31,7 @@ BuildRequires:	pkgconfig(nss)
 BuildRequires:	pkgconfig(nspr)
 BuildRequires:	pkgconfig(sqlite3)
 BuildRequires:	pkgconfig(python3)
+BuildRequires:	python-setuptools
 BuildRequires:	xmlto
 BuildRequires:	texlive-dvips texlive-charter texlive-mathdesign
 BuildRequires:	python >= 3.4
