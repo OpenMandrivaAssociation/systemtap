@@ -10,8 +10,8 @@
 Summary:	Infrastructure to gather information about the running Linux system
 Name:		systemtap
 Epoch:		1
-Version:	2.6
-Release:	3
+Version:	3.1
+Release:	1
 License:	GPLv2+
 Group:		Development/Kernel
 Url:		http://sourceware.org/systemtap/
@@ -30,9 +30,9 @@ BuildRequires:	pkgconfig(libglade-2.0)
 BuildRequires:	pkgconfig(nss)
 BuildRequires:	pkgconfig(nspr)
 BuildRequires:	pkgconfig(sqlite3)
+BuildRequires:	pkgconfig(python3)
 BuildRequires:	xmlto
 BuildRequires:	texlive-dvips texlive-charter texlive-mathdesign
-# For 2to3
 BuildRequires:	python >= 3.4
 %if %{with java}
 BuildRequires:	jpackage-utils java-devel
@@ -64,6 +64,14 @@ Conflicts:	systemtap < 1:2.1-3
 %description	runtime
 SystemTap is an instrumentation system for systems running Linux.
 This package contains the runtime environment for systemtap programs.
+
+%package	examples
+Summary:	Examples for systemtap
+Group:		Development/Other
+
+%description	examples
+SystemTap is an instrumentation system for systems running Linux.
+This package contains examples for systemtap programs.
 
 %if %{with java}
 %package	runtime-java
@@ -106,6 +114,8 @@ autoreconf -fi
 %build
 %global optflags %{optflags} -Wno-error
 %configure	--with-rpm \
+		--with-python3 \
+		--without-python2-probes \
 		--without-selinux \
 %if %{with java}
 		--with-java=%{_jvmdir}/java \
@@ -120,19 +130,19 @@ autoreconf -fi
 # we add testsuite with a lot of examples
 install -m 766 -d testsuite %{buildroot}%{_datadir}/%{name}/
 
-# Let's convert dtrace to Python 3.x...
-2to3 -w %{buildroot}%{_bindir}/dtrace
-
-%find_lang %{name}
+%find_lang %{name} --with-man
 
 %files
 %{_bindir}/stap
 %{_mandir}/man[17]/*
+%lang(cs) %{_mandir}/cs/man[17]/*
 %dir %{_datadir}/%{name}
 %{_datadir}/%{name}/tapset
 
+%files examples
+%{_datadir}/%{name}/examples
+
 %files runtime -f systemtap.lang
-%doc %{_docdir}/systemtap
 %{_bindir}/staprun
 %{_bindir}/stapsh
 %{_bindir}/stap-merge
@@ -141,9 +151,13 @@ install -m 766 -d testsuite %{buildroot}%{_datadir}/%{name}/
 %{_libexecdir}/%{name}/stapio
 %{_libexecdir}/%{name}/stap-env
 %{_libexecdir}/%{name}/stap-authorize-cert
+%dir %{_libexecdir}/%{name}/python
+%{_libexecdir}/%{name}/python/stap-resolve-module-function.py
+%{_libdir}/python3*/site-packages/HelperSDT*
 %{_mandir}/man8/staprun.8*
 %{_mandir}/man8/stapsh.8.*
 %{_mandir}/man8/systemtap.8.*
+%lang(cs) %{_mandir}/cs/man8/stapsh.8*
 
 %if %{with java}
 %files runtime-java
@@ -161,9 +175,11 @@ install -m 766 -d testsuite %{buildroot}%{_datadir}/%{name}/
 %{_libexecdir}/%{name}/stap-start-server
 %{_libexecdir}/%{name}/stap-stop-server
 %{_mandir}/man8/stap-server.8*
+%lang(cs) %{_mandir}/cs/man8/stap-server.8*
 
 %files devel
 %{_bindir}/dtrace
 %{_includedir}/sys/*.h
 %{_datadir}/%{name}/runtime
 %{_mandir}/man3/*.3*
+%lang(cs) %{_mandir}/cs/man3/*
