@@ -10,13 +10,12 @@
 Summary:	Infrastructure to gather information about the running Linux system
 Name:		systemtap
 Epoch:		1
-Version:	3.1
+Version:	3.2
 Release:	1
 License:	GPLv2+
 Group:		Development/Kernel
 Url:		http://sourceware.org/systemtap/
 Source0:	http://sourceware.org/systemtap/ftp/releases/%{name}-%{version}.tar.gz
-Patch2:		systemtap-2.4-rpm5.patch
 Patch3:		systemtap-2.5-fix-aliasing-violations.patch
 
 BuildRequires:	cap-devel
@@ -144,6 +143,7 @@ install -m 766 -d testsuite %{buildroot}%{_datadir}/%{name}/
 %{_datadir}/%{name}/examples
 
 %files runtime -f systemtap.lang
+%{_bindir}/stapbpf
 %{_bindir}/staprun
 %{_bindir}/stapsh
 %{_bindir}/stap-merge
@@ -152,9 +152,9 @@ install -m 766 -d testsuite %{buildroot}%{_datadir}/%{name}/
 %{_libexecdir}/%{name}/stapio
 %{_libexecdir}/%{name}/stap-env
 %{_libexecdir}/%{name}/stap-authorize-cert
-%dir %{_libexecdir}/%{name}/python
-%{_libexecdir}/%{name}/python/stap-resolve-module-function.py
+%{_libexecdir}/%{name}/python
 %{_libdir}/python3*/site-packages/HelperSDT*
+%{_mandir}/man8/stapbpf.8.*
 %{_mandir}/man8/staprun.8*
 %{_mandir}/man8/stapsh.8.*
 %{_mandir}/man8/systemtap.8.*
