@@ -37,7 +37,7 @@ BuildRequires:	xmlto
 BuildRequires:	texlive-dvips texlive-charter texlive-mathdesign
 BuildRequires:	python >= 3.4
 %if %{with java}
-BuildRequires:	jpackage-utils java-devel
+BuildRequires:	jpackage-utils java-1.8.0-openjdk-devel
 %endif
 
 Provides:	/usr/bin/stap
