@@ -4,14 +4,14 @@
 %bcond_with	java
 %endif
 # systemtap uses nested functions in loc2c.c
-%define __cc gcc
-%define __cxx g++
+%global __cc gcc
+%global __cxx g++
 
 Summary:	Infrastructure to gather information about the running Linux system
 Name:		systemtap
 Epoch:		1
 Version:	3.3
-Release:	1
+Release:	2
 License:	GPLv2+
 Group:		Development/Kernel
 Url:		http://sourceware.org/systemtap/
@@ -19,7 +19,7 @@ Source0:	http://sourceware.org/systemtap/ftp/releases/%{name}-%{version}.tar.gz
 Patch3:		systemtap-2.5-fix-aliasing-violations.patch
 
 BuildRequires:	cap-devel
-Buildrequires:	elfutils-devel
+BuildRequires:	elfutils-devel
 BuildRequires:	gettext
 BuildRequires:	gettext-devel
 BuildRequires:	latex2html
