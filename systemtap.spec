@@ -1,4 +1,4 @@
-%ifnarch aarch64
+%ifnarch aarch64 riscv64
 %bcond_without	java
 %else
 %bcond_with	java
