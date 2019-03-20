@@ -106,6 +106,7 @@ Conflicts:	systemtap < 1:2.1-3
 SystemTap is an instrumentation system for systems running Linux.
 This package contains the server component of systemtap.
 
+%ifnarch riscv64
 %package	exporter
 Summary:	Systemtap-prometheus interoperation mechanism
 Group:		Development/Kernel
@@ -116,7 +117,7 @@ URL:		http://sourceware.org/systemtap/
 This package includes files for a systemd service that manages
 systemtap sessions and relays prometheus metrics from the sessions
 to remote requesters on demand.
-
+%endif
 
 %package	devel
 Summary:	Header files for %{name}
@@ -128,8 +129,7 @@ Conflicts:	systemtap < 1:2.1-3
 The package includes the header files for %{name}.
 
 %prep
-%setup -q
-%apply_patches
+%autosetup -p1
 
 sed -i 's!$(DESTDIR)$(prefix)/lib/systemd!$(DESTDIR)/lib/systemd!g' stap-exporter/Makefile.*
 
@@ -148,7 +148,7 @@ autoreconf -fi
 %endif
 		--enable-sqlite \
 		--disable-docs
-%make
+%make_build
 
 %install
 %makeinstall_std
@@ -206,12 +206,14 @@ install -m 766 -d testsuite %{buildroot}%{_datadir}/%{name}/
 %{_mandir}/man8/stap-server.8*
 %lang(cs) %{_mandir}/cs/man8/stap-server.8*
 
+%ifnarch riscv64
 %files exporter
 %{_sysconfdir}/stap-exporter
 %{_sysconfdir}/sysconfig/stap-exporter
 %{_unitdir}/stap-exporter.service
 %{_mandir}/man8/stap-exporter.8*
 %{_sbindir}/stap-exporter
+%endif
 
 %files devel
 %{_bindir}/dtrace
