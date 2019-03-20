@@ -36,11 +36,13 @@ BuildRequires:	texlive-dvips texlive-charter texlive-mathdesign
 BuildRequires:	pkgconfig(nss)
 BuildRequires:	pkgconfig(nspr)
 BuildRequires:	pkgconfig(sqlite3)
+%ifnarch riscv64
 BuildRequires:	pkgconfig(python3)
-BuildRequires:	pkgconfig(rpm)
-BuildRequires:	pkgconfig(popt)
 BuildRequires:	python-setuptools
 BuildRequires:	python >= 3.4
+%endif
+BuildRequires:	pkgconfig(rpm)
+BuildRequires:	pkgconfig(popt)
 %if %{with java}
 BuildRequires:	jpackage-utils java-1.8.0-openjdk-devel
 %endif
@@ -136,8 +138,10 @@ autoreconf -fi
 %build
 %global optflags %{optflags} -Wno-error
 %configure	--with-rpm \
+%ifnarch riscv64
 		--with-python3 \
 		--without-python2-probes \
+%endif
 		--without-selinux \
 %if %{with java}
 		--with-java=%{_jvmdir}/java \
@@ -174,8 +178,10 @@ install -m 766 -d testsuite %{buildroot}%{_datadir}/%{name}/
 %{_libexecdir}/%{name}/stapio
 %{_libexecdir}/%{name}/stap-env
 %{_libexecdir}/%{name}/stap-authorize-cert
+%ifnarch riscv64
 %{_libexecdir}/%{name}/python
 %{_libdir}/python3*/site-packages/HelperSDT*
+%endif
 %{_mandir}/man8/stapbpf.8.*
 %{_mandir}/man8/staprun.8*
 %{_mandir}/man8/stapsh.8.*
