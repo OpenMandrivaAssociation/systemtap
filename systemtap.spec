@@ -7,6 +7,9 @@
 %global __cc gcc
 %global __cxx g++
 
+%bcond_without	avahi
+%bcond_without	docs
+
 Summary:	Infrastructure to gather information about the running Linux system
 Name:		systemtap
 Epoch:		1
@@ -22,10 +25,14 @@ BuildRequires:	cap-devel
 BuildRequires:	elfutils-devel
 BuildRequires:	gettext
 BuildRequires:	gettext-devel
-BuildRequires:	latex2html
+#BuildRequires:	latex2html
+%if %{with avahi}
 BuildRequires:	pkgconfig(avahi-client)
-BuildRequires:	pkgconfig(gtkmm-2.4)
-BuildRequires:	pkgconfig(libglade-2.0)
+%endif
+%if %{with docs}
+BuildRequires:	xmlto
+BuildRequires:	texlive-dvips texlive-charter texlive-mathdesign
+%endif
 BuildRequires:	pkgconfig(nss)
 BuildRequires:	pkgconfig(nspr)
 BuildRequires:	pkgconfig(sqlite3)
@@ -33,8 +40,6 @@ BuildRequires:	pkgconfig(python3)
 BuildRequires:	pkgconfig(rpm)
 BuildRequires:	pkgconfig(popt)
 BuildRequires:	python-setuptools
-BuildRequires:	xmlto
-BuildRequires:	texlive-dvips texlive-charter texlive-mathdesign
 BuildRequires:	python >= 3.4
 %if %{with java}
 BuildRequires:	jpackage-utils java-1.8.0-openjdk-devel
