@@ -40,7 +40,7 @@ BuildRequires:	pkgconfig(sqlite3)
 BuildRequires:	pkgconfig(python3)
 BuildRequires:	python-setuptools
 %endif
-BuildRequires:	python >= 3.4
+BuildRequires:	python2 >= 3.4
 BuildRequires:	pkgconfig(rpm)
 BuildRequires:	pkgconfig(popt)
 %if %{with java}
