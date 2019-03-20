@@ -144,7 +144,7 @@ autoreconf -fi
 %endif
 		--without-selinux \
 %if %{with java}
-		--with-java=%{_jvmdir}/java \
+		--with-java=/usr/lib/jvm/java \
 %endif
 		--enable-sqlite \
 		--disable-docs
@@ -185,7 +185,7 @@ install -m 766 -d testsuite %{buildroot}%{_datadir}/%{name}/
 %{_mandir}/man8/stapbpf.8.*
 %{_mandir}/man8/staprun.8*
 %{_mandir}/man8/stapsh.8.*
-#% {_mandir}/man8/systemtap.8.
+%{_mandir}/man8/systemtap-service.8.*
 %lang(cs) %{_mandir}/cs/man8/stapsh.8*
 
 %if %{with java}
