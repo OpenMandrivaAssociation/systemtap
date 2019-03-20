@@ -1,4 +1,4 @@
-%ifnarch aarch64 riscv64 znver1
+%ifnarch aarch64 riscv64
 %bcond_without	java
 %else
 %bcond_with	java
@@ -7,14 +7,14 @@
 %global __cc gcc
 %global __cxx g++
 
-%bcond_with	avahi
-%bcond_with	docs
+%bcond_without	avahi
+%bcond_without	docs
 
 Summary:	Infrastructure to gather information about the running Linux system
 Name:		systemtap
 Epoch:		1
 Version:	4.0
-Release:	1
+Release:	2
 License:	GPLv2+
 Group:		Development/Kernel
 Url:		http://sourceware.org/systemtap/
