@@ -1,4 +1,4 @@
-%ifnarch aarch64 riscv64
+%ifnarch aarch64 riscv64 znver1
 %bcond_without	java
 %else
 %bcond_with	java
@@ -7,14 +7,14 @@
 %global __cc gcc
 %global __cxx g++
 
-%bcond_without	avahi
-%bcond_without	docs
+%bcond_with	avahi
+%bcond_with	docs
 
 Summary:	Infrastructure to gather information about the running Linux system
 Name:		systemtap
 Epoch:		1
-Version:	3.3
-Release:	3
+Version:	4.0
+Release:	1
 License:	GPLv2+
 Group:		Development/Kernel
 Url:		http://sourceware.org/systemtap/
@@ -104,6 +104,18 @@ Conflicts:	systemtap < 1:2.1-3
 SystemTap is an instrumentation system for systems running Linux.
 This package contains the server component of systemtap.
 
+%package	exporter
+Summary:	Systemtap-prometheus interoperation mechanism
+Group:		Development/Kernel
+License:	GPLv2+
+URL:		http://sourceware.org/systemtap/
+
+%description exporter
+This package includes files for a systemd service that manages
+systemtap sessions and relays prometheus metrics from the sessions
+to remote requesters on demand.
+
+
 %package	devel
 Summary:	Header files for %{name}
 Group:		Development/Other
@@ -116,6 +128,9 @@ The package includes the header files for %{name}.
 %prep
 %setup -q
 %apply_patches
+
+sed -i 's!$(DESTDIR)$(prefix)/lib/systemd!$(DESTDIR)/lib/systemd!g' stap-exporter/Makefile.*
+
 autoreconf -fi
 
 %build
@@ -164,7 +179,7 @@ install -m 766 -d testsuite %{buildroot}%{_datadir}/%{name}/
 %{_mandir}/man8/stapbpf.8.*
 %{_mandir}/man8/staprun.8*
 %{_mandir}/man8/stapsh.8.*
-%{_mandir}/man8/systemtap.8.*
+%{_mandir}/man8/systemtap.8.
 %lang(cs) %{_mandir}/cs/man8/stapsh.8*
 
 %if %{with java}
@@ -184,6 +199,13 @@ install -m 766 -d testsuite %{buildroot}%{_datadir}/%{name}/
 %{_libexecdir}/%{name}/stap-stop-server
 %{_mandir}/man8/stap-server.8*
 %lang(cs) %{_mandir}/cs/man8/stap-server.8*
+
+%files exporter
+%{_sysconfdir}/stap-exporter
+%{_sysconfdir}/sysconfig/stap-exporter
+%{_unitdir}/stap-exporter.service
+%{_mandir}/man8/stap-exporter.8*
+%{_sbindir}/stap-exporter
 
 %files devel
 %{_bindir}/dtrace
