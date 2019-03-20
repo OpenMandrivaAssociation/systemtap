@@ -39,8 +39,8 @@ BuildRequires:	pkgconfig(sqlite3)
 %ifnarch riscv64
 BuildRequires:	pkgconfig(python3)
 BuildRequires:	python-setuptools
-BuildRequires:	python >= 3.4
 %endif
+BuildRequires:	python >= 3.4
 BuildRequires:	pkgconfig(rpm)
 BuildRequires:	pkgconfig(popt)
 %if %{with java}
