@@ -6,6 +6,7 @@
 # systemtap uses nested functions in loc2c.c
 %global __cc gcc
 %global __cxx g++
+%define _disable_ld_no_undefined %nil
 
 %bcond_without	avahi
 %bcond_without	docs
@@ -14,7 +15,7 @@ Summary:	Infrastructure to gather information about the running Linux system
 Name:		systemtap
 Epoch:		1
 Version:	4.2
-Release:	2
+Release:	3
 License:	GPLv2+
 Group:		Development/Kernel
 Url:		http://sourceware.org/systemtap/
