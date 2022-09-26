@@ -14,12 +14,13 @@
 Summary:	Infrastructure to gather information about the running Linux system
 Name:		systemtap
 Epoch:		1
-Version:	4.4
-Release:	2
+Version:	4.7
+Release:	1
 License:	GPLv2+
 Group:		Development/Kernel
 Url:		http://sourceware.org/systemtap/
 Source0:	http://sourceware.org/systemtap/ftp/releases/%{name}-%{version}.tar.gz
+Patch0:		systemtap-4.7-python-3.11.patch
 Patch3:		systemtap-2.5-fix-aliasing-violations.patch
 
 BuildRequires:	cap-devel
@@ -152,7 +153,7 @@ autoreconf -fi
 %make_build
 
 %install
-%makeinstall_std
+%make_install
 
 # we add testsuite with a lot of examples
 install -m 766 -d testsuite %{buildroot}%{_datadir}/%{name}/
@@ -161,6 +162,8 @@ install -m 766 -d testsuite %{buildroot}%{_datadir}/%{name}/
 
 %files
 %{_bindir}/stap
+/lib/systemd/system/stap-exporter.service
+%{_bindir}/stap-profile-annotate
 %{_mandir}/man[17]/*
 %lang(cs) %{_mandir}/cs/man[17]/*
 %dir %{_datadir}/%{name}
@@ -192,7 +195,7 @@ install -m 766 -d testsuite %{buildroot}%{_datadir}/%{name}/
 %if %{with java}
 %files runtime-java
 %dir %{_libexecdir}/systemtap
-%{_libexecdir}/systemtap/libHelperSDT_*.so
+%{_libexecdir}/systemtap/libHelperSDT.so
 %{_libexecdir}/systemtap/HelperSDT.jar
 %{_libexecdir}/systemtap/stapbm
 %endif
@@ -211,7 +214,6 @@ install -m 766 -d testsuite %{buildroot}%{_datadir}/%{name}/
 %files exporter
 %{_sysconfdir}/stap-exporter
 %{_sysconfdir}/sysconfig/stap-exporter
-%{_unitdir}/stap-exporter.service
 %{_mandir}/man8/stap-exporter.8*
 %{_sbindir}/stap-exporter
 %endif
