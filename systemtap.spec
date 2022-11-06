@@ -14,13 +14,13 @@
 Summary:	Infrastructure to gather information about the running Linux system
 Name:		systemtap
 Epoch:		1
-Version:	4.7
+Version:	4.8
 Release:	1
 License:	GPLv2+
 Group:		Development/Kernel
 Url:		http://sourceware.org/systemtap/
 Source0:	http://sourceware.org/systemtap/ftp/releases/%{name}-%{version}.tar.gz
-Patch0:		systemtap-4.7-python-3.11.patch
+#Patch0:		systemtap-4.7-python-3.11.patch
 Patch3:		systemtap-2.5-fix-aliasing-violations.patch
 
 BuildRequires:	cap-devel
@@ -162,6 +162,7 @@ install -m 766 -d testsuite %{buildroot}%{_datadir}/%{name}/
 
 %files
 %{_bindir}/stap
+%{_bindir}/stapvirt
 /lib/systemd/system/stap-exporter.service
 %{_bindir}/stap-profile-annotate
 %{_mandir}/man[17]/*
