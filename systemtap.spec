@@ -27,6 +27,11 @@ BuildRequires:	cap-devel
 BuildRequires:	elfutils-devel
 BuildRequires:	gettext
 BuildRequires:	gettext-devel
+BuildRequires:	pkgconfig(libvirt)
+BuildRequires:	pkgconfig(libxml-2.0)
+BuildRequires:	pkgconfig(json-c)
+BuildRequires:	pkgconfig(ncursesw)
+BuildRequires:	boost-devel
 #BuildRequires:	latex2html
 %if %{with avahi}
 BuildRequires:	pkgconfig(avahi-client)
