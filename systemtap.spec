@@ -15,7 +15,7 @@ Summary:	Infrastructure to gather information about the running Linux system
 Name:		systemtap
 Epoch:		1
 Version:	4.8
-Release:	3
+Release:	4
 License:	GPLv2+
 Group:		Development/Kernel
 Url:		http://sourceware.org/systemtap/
