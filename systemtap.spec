@@ -14,8 +14,8 @@
 Summary:	Infrastructure to gather information about the running Linux system
 Name:		systemtap
 Epoch:		1
-Version:	4.8
-Release:	4
+Version:	4.9
+Release:	1
 License:	GPLv2+
 Group:		Development/Kernel
 Url:		http://sourceware.org/systemtap/
@@ -167,6 +167,8 @@ install -m 766 -d testsuite %{buildroot}%{_datadir}/%{name}/
 
 %files
 %{_bindir}/stap
+%{_bindir}/stap-jupyter-container
+%{_bindir}/stap-jupyter-install
 %{_bindir}/stapvirt
 /lib/systemd/system/stap-exporter.service
 %{_bindir}/stap-profile-annotate
@@ -184,6 +186,7 @@ install -m 766 -d testsuite %{buildroot}%{_datadir}/%{name}/
 %{_bindir}/stapsh
 %{_bindir}/stap-merge
 %{_bindir}/stap-report
+%{_datadir}/%{name}
 %dir %{_libexecdir}/%{name}
 %{_libexecdir}/%{name}/stapio
 %{_libexecdir}/%{name}/stap-env
