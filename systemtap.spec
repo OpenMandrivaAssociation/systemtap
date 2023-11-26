@@ -74,7 +74,6 @@ Current project members include Red Hat, IBM, Intel, and Hitachi.
 %package	runtime
 Summary:	Runtime environment for systemtap
 Group:		Development/Other
-Conflicts:	systemtap < 1:2.1-3
 
 %description	runtime
 SystemTap is an instrumentation system for systems running Linux.
@@ -106,7 +105,6 @@ runtimes using Byteman.
 Summary:	Systemtap server
 Group:		Development/Other
 Requires:	%{name} = %{EVRD}
-Conflicts:	systemtap < 1:2.1-3
 
 %description	server
 SystemTap is an instrumentation system for systems running Linux.
@@ -129,7 +127,6 @@ to remote requesters on demand.
 Summary:	Header files for %{name}
 Group:		Development/Other
 Requires:	%{name} = %{EVRD}
-Conflicts:	systemtap < 1:2.1-3
 
 %description	devel
 The package includes the header files for %{name}.
