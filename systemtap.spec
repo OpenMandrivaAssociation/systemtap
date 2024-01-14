@@ -1,11 +1,8 @@
-%ifnarch aarch64 riscv64
-%bcond_without	java
-%else
+%ifarch %{riscv}
 %bcond_with	java
+%else
+%bcond_without	java
 %endif
-# systemtap uses nested functions in loc2c.c
-%global __cc gcc
-%global __cxx g++
 %define _disable_ld_no_undefined %nil
 
 %bcond_without	avahi
@@ -42,15 +39,12 @@ BuildRequires:	texlive-dvips texlive-charter texlive-mathdesign
 BuildRequires:	pkgconfig(nss)
 BuildRequires:	pkgconfig(nspr)
 BuildRequires:	pkgconfig(sqlite3)
-%ifnarch riscv64
 BuildRequires:	pkgconfig(python3)
 BuildRequires:	python-setuptools
-%endif
-BuildRequires:	python2
 BuildRequires:	pkgconfig(rpm)
 BuildRequires:	pkgconfig(popt)
 %if %{with java}
-BuildRequires:	jpackage-utils java-1.8.0-openjdk-devel
+BuildRequires:	jpackage-utils jdk-current
 %endif
 
 Provides:	/usr/bin/stap
@@ -139,12 +133,14 @@ sed -i 's!$(DESTDIR)$(prefix)/lib/systemd!$(DESTDIR)/lib/systemd!g' stap-exporte
 autoreconf -fi
 
 %build
+%if %{with java}
+. %{_sysconfdir}/profile.d/90java.sh
+%endif
+
 %global optflags %{optflags} -Wno-error
 %configure	--with-rpm \
-%ifnarch riscv64
 		--with-python3 \
 		--without-python2-probes \
-%endif
 		--without-selinux \
 %if %{with java}
 		--with-java=/usr/lib/jvm/java \
