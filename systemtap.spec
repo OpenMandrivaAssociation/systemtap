@@ -138,12 +138,20 @@ autoreconf -fi
 %endif
 
 %global optflags %{optflags} -Wno-error
+# FIXME at the moment disabling avahi also disables nss and libvirt
+# That's because all 3 are disabled for bootstrapping. Might make sense
+# to have separate options for more customization options.
 %configure	--with-rpm \
-		--with-python3 \
 		--without-python2-probes \
 		--without-selinux \
+		--with-python3 \
 %if %{with java}
 		--with-java=/usr/lib/jvm/java \
+%endif
+%if %{without avahi}
+		--without-avahi \
+		--without-nss \
+		--disable-libvirt \
 %endif
 		--enable-sqlite \
 		--disable-docs
