@@ -1,5 +1,11 @@
 %ifarch %{riscv}
+# FIXME The RISC-V port doesn't have java yet, but
+# we can crosscompile
+%if %{cross_compiling}
+%bcond_without	java
+%else
 %bcond_with	java
+%endif
 %else
 %bcond_without	java
 %endif
@@ -104,7 +110,6 @@ Requires:	%{name} = %{EVRD}
 SystemTap is an instrumentation system for systems running Linux.
 This package contains the server component of systemtap.
 
-%ifnarch riscv64
 %package	exporter
 Summary:	Systemtap-prometheus interoperation mechanism
 Group:		Development/Kernel
@@ -115,7 +120,6 @@ URL:		http://sourceware.org/systemtap/
 This package includes files for a systemd service that manages
 systemtap sessions and relays prometheus metrics from the sessions
 to remote requesters on demand.
-%endif
 
 %package	devel
 Summary:	Header files for %{name}
@@ -169,7 +173,9 @@ install -m 766 -d testsuite %{buildroot}%{_datadir}/%{name}/
 %{_bindir}/stap
 %{_bindir}/stap-jupyter-container
 %{_bindir}/stap-jupyter-install
+%if ! %{without avahi}
 %{_bindir}/stapvirt
+%endif
 /lib/systemd/system/stap-exporter.service
 %{_bindir}/stap-profile-annotate
 %{_mandir}/man[17]/*
@@ -190,11 +196,11 @@ install -m 766 -d testsuite %{buildroot}%{_datadir}/%{name}/
 %dir %{_libexecdir}/%{name}
 %{_libexecdir}/%{name}/stapio
 %{_libexecdir}/%{name}/stap-env
+%if ! %{without avahi}
 %{_libexecdir}/%{name}/stap-authorize-cert
-%ifnarch riscv64
+%endif
 %{_libexecdir}/%{name}/python
 %{_libdir}/python3*/site-packages/HelperSDT*
-%endif
 %{_mandir}/man8/stapbpf.8.*
 %{_mandir}/man8/staprun.8*
 %{_mandir}/man8/stapsh.8.*
@@ -209,6 +215,7 @@ install -m 766 -d testsuite %{buildroot}%{_datadir}/%{name}/
 %{_libexecdir}/systemtap/stapbm
 %endif
 
+%if ! %{without avahi}
 %files server
 %{_bindir}/stap-server
 %{_libexecdir}/%{name}/stap-gen-cert
@@ -218,14 +225,13 @@ install -m 766 -d testsuite %{buildroot}%{_datadir}/%{name}/
 %{_libexecdir}/%{name}/stap-stop-server
 %{_mandir}/man8/stap-server.8*
 %lang(cs) %{_mandir}/cs/man8/stap-server.8*
+%endif
 
-%ifnarch riscv64
 %files exporter
 %{_sysconfdir}/stap-exporter
 %{_sysconfdir}/sysconfig/stap-exporter
 %{_mandir}/man8/stap-exporter.8*
 %{_sbindir}/stap-exporter
-%endif
 
 %files devel
 %{_bindir}/dtrace
