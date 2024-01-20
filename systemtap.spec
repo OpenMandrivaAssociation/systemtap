@@ -151,6 +151,8 @@ autoreconf -fi
 		--with-python3 \
 %if %{with java}
 		--with-java=/usr/lib/jvm/java \
+%else
+		--without-java \
 %endif
 %if %{without avahi}
 		--without-avahi \
