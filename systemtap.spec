@@ -16,8 +16,8 @@
 
 Summary:	Infrastructure to gather information about the running Linux system
 Name:		systemtap
-Version:	5.0
-Release:	6
+Version:	5.1
+Release:	1
 License:	GPLv2+
 Group:		Development/Kernel
 Url:		http://sourceware.org/systemtap/
