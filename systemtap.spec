@@ -20,7 +20,7 @@ Version:	5.1
 Release:	1
 License:	GPLv2+
 Group:		Development/Kernel
-Url:		http://sourceware.org/systemtap/
+Url:		https://sourceware.org/systemtap/
 Source0:	http://sourceware.org/systemtap/ftp/releases/%{name}-%{version}.tar.gz
 #Patch0:		systemtap-4.7-python-3.11.patch
 Patch3:		systemtap-2.5-fix-aliasing-violations.patch
@@ -114,7 +114,7 @@ This package contains the server component of systemtap.
 Summary:	Systemtap-prometheus interoperation mechanism
 Group:		Development/Kernel
 License:	GPLv2+
-URL:		http://sourceware.org/systemtap/
+URL:		https://sourceware.org/systemtap/
 
 %description exporter
 This package includes files for a systemd service that manages
