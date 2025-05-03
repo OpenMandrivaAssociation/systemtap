@@ -16,7 +16,7 @@
 
 Summary:	Infrastructure to gather information about the running Linux system
 Name:		systemtap
-Version:	5.1
+Version:	5.2
 Release:	1
 License:	GPLv2+
 Group:		Development/Kernel
@@ -173,6 +173,7 @@ install -m 766 -d testsuite %{buildroot}%{_datadir}/%{name}/
 
 %files
 %{_bindir}/stap
+%{_bindir}/stap-prep
 %{_bindir}/stap-jupyter-container
 %{_bindir}/stap-jupyter-install
 %if ! %{without avahi}
