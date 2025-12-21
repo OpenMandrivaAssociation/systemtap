@@ -25,6 +25,11 @@ Source0:	http://sourceware.org/systemtap/ftp/releases/%{name}-%{version}.tar.gz
 #Patch0:		systemtap-4.7-python-3.11.patch
 Patch3:		systemtap-2.5-fix-aliasing-violations.patch
 
+BuildRequires:	autoconf
+BuildRequires:	automake
+BuildRequires:	libtool-base
+BuildRequires:	slibtool
+BuildRequires:	make
 BuildRequires:	cap-devel
 BuildRequires:	elfutils-devel
 BuildRequires:	gettext
