@@ -24,9 +24,6 @@ Url:		https://sourceware.org/systemtap/
 Source0:	http://sourceware.org/systemtap/ftp/releases/%{name}-%{version}.tar.gz
 #Patch0:		systemtap-4.7-python-3.11.patch
 Patch3:		systemtap-2.5-fix-aliasing-violations.patch
-# clang 23: const bpf_func_id X = (bpf_func_id)-N is not a case label
-# (out-of-range enum cast). Fake helper IDs are uint64_t constants instead.
-Patch4:		systemtap-5.5-bpf-func-id-constexpr.patch
 
 BuildRequires:	autoconf
 BuildRequires:	automake
@@ -140,6 +137,12 @@ The package includes the header files for %{name}.
 %prep
 %autosetup -p1
 
+%if %{cross_compiling}
+# stapbpf: clang 23 rejects (bpf_func_id)-N as a switch case (enum range
+# 0..255). Native still builds it; do not ship a host-only binary.
+sed -i 's/ stapbpf / /' Makefile.am Makefile.in
+%endif
+
 sed -i 's!$(DESTDIR)$(prefix)/lib/systemd!$(DESTDIR)/lib/systemd!g' stap-exporter/Makefile.*
 
 autoreconf -fi
@@ -198,7 +201,10 @@ install -m 766 -d testsuite %{buildroot}%{_datadir}/%{name}/
 %{_datadir}/%{name}/examples
 
 %files runtime -f systemtap.lang
+%if ! %{cross_compiling}
 %{_bindir}/stapbpf
+%{_mandir}/man8/stapbpf.8.*
+%endif
 %{_bindir}/staprun
 %{_bindir}/stapsh
 %{_bindir}/stap-merge
@@ -212,7 +218,6 @@ install -m 766 -d testsuite %{buildroot}%{_datadir}/%{name}/
 %endif
 %{_libexecdir}/%{name}/python
 %{_libdir}/python3*/site-packages/HelperSDT*
-%{_mandir}/man8/stapbpf.8.*
 %{_mandir}/man8/staprun.8*
 %{_mandir}/man8/stapsh.8.*
 %{_mandir}/man8/systemtap-service.8.*
