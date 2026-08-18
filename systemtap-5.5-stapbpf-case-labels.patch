@@ -1,0 +1,57 @@
+--- a/stapbpf/bpfinterp.cxx	2026-05-01 21:23:07.000000000 +0200
++++ b/stapbpf/bpfinterp.cxx	2026-08-19 01:00:58.147795776 +0200
+@@ -1088,43 +1088,43 @@
+               fflush(output_f);
+ #pragma GCC diagnostic pop
+ 	      break;
+-            case bpf::BPF_FUNC_sprintf:
++            case static_cast<uint64_t>(-2): /* BPF_FUNC_sprintf */
+               dr = bpf_sprintf(strings, as_str(regs[1]),
+                                regs[3], regs[4], regs[5]);
+               break;
+-            case bpf::BPF_FUNC_text_str:
++            case static_cast<uint64_t>(-10): /* BPF_FUNC_text_str */
+               dr = bpf_text_str(strings, as_str(regs[1]), false);
+               break;
+-            case bpf::BPF_FUNC_string_quoted:
++            case static_cast<uint64_t>(-11): /* BPF_FUNC_string_quoted */
+               dr = bpf_text_str(strings, as_str(regs[1]), true);
+               break;
+-            case bpf::BPF_FUNC_str_concat:
++            case static_cast<uint64_t>(-9): /* BPF_FUNC_str_concat */
+               dr = bpf_str_concat(strings, as_str(regs[1]), 
+                                   as_str(regs[2]));
+               break;
+-            case bpf::BPF_FUNC_map_get_next_key:
++            case static_cast<uint64_t>(-1): /* BPF_FUNC_map_get_next_key */
+               dr = map_get_next_key(regs[1], regs[2], regs[3],
+                                     regs[4], regs[5],
+                                     ctx, foreach_ctxs[regs[1]],
+                                     strings, map_values);
+               break;
+-            case bpf::BPF_FUNC_stapbpf_stat_get:
++            case static_cast<uint64_t>(-3): /* BPF_FUNC_stapbpf_stat_get */
+               dr = stapbpf_stat_get((bpf::globals::agg_idx)regs[1], regs[2],
+                                      bpf::globals::deintern_sc_type(regs[3]), ctx);
+               break;
+-            case bpf::BPF_FUNC_gettimeofday_ns:
++            case static_cast<uint64_t>(-4): /* BPF_FUNC_gettimeofday_ns */
+               dr = bpf_gettimeofday_ns();
+               break;
+-            case bpf::BPF_FUNC_get_target:
++            case static_cast<uint64_t>(-5): /* BPF_FUNC_get_target */
+               dr = bpf_get_target();
+               break;
+-            case bpf::BPF_FUNC_set_procfs_value:
++            case static_cast<uint64_t>(-6): /* BPF_FUNC_set_procfs_value */
+               dr = bpf_set_procfs_value(as_str(regs[1]), ctx);
+               break;
+-            case bpf::BPF_FUNC_append_procfs_value:
++            case static_cast<uint64_t>(-7): /* BPF_FUNC_append_procfs_value */
+               dr = bpf_append_procfs_value(as_str(regs[1]), ctx);
+               break;
+-            case bpf::BPF_FUNC_get_procfs_value:
++            case static_cast<uint64_t>(-8): /* BPF_FUNC_get_procfs_value */
+               dr = bpf_get_procfs_value(ctx);
+               break;
+ 	    default:
