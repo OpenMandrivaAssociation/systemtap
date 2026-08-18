@@ -17,13 +17,16 @@
 Summary:	Infrastructure to gather information about the running Linux system
 Name:		systemtap
 Version:	5.5
-Release:	1
+Release:	2
 License:	GPLv2+
 Group:		Development/Kernel
 Url:		https://sourceware.org/systemtap/
 Source0:	http://sourceware.org/systemtap/ftp/releases/%{name}-%{version}.tar.gz
 #Patch0:		systemtap-4.7-python-3.11.patch
 Patch3:		systemtap-2.5-fix-aliasing-violations.patch
+# clang 23: const bpf_func_id X = (bpf_func_id)-N is not a case label
+# (out-of-range enum cast). Fake helper IDs are uint64_t constants instead.
+Patch4:		systemtap-5.5-bpf-func-id-constexpr.patch
 
 BuildRequires:	autoconf
 BuildRequires:	automake

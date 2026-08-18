@@ -1,0 +1,31 @@
+--- a/bpf-internal.h	2026-05-01 21:23:07.000000000 +0200
++++ b/bpf-internal.h	2026-08-19 00:36:34.114240722 +0200
+@@ -224,17 +224,17 @@
+   FN(text_str),                   \
+   FN(string_quoted),
+  
+-const bpf_func_id BPF_FUNC_map_get_next_key    = (bpf_func_id) -1;
+-const bpf_func_id BPF_FUNC_sprintf             = (bpf_func_id) -2;
+-const bpf_func_id BPF_FUNC_stapbpf_stat_get    = (bpf_func_id) -3;
+-const bpf_func_id BPF_FUNC_gettimeofday_ns     = (bpf_func_id) -4;
+-const bpf_func_id BPF_FUNC_get_target          = (bpf_func_id) -5;
+-const bpf_func_id BPF_FUNC_set_procfs_value    = (bpf_func_id) -6;
+-const bpf_func_id BPF_FUNC_append_procfs_value = (bpf_func_id) -7;
+-const bpf_func_id BPF_FUNC_get_procfs_value    = (bpf_func_id) -8;
+-const bpf_func_id BPF_FUNC_str_concat          = (bpf_func_id) -9;
+-const bpf_func_id BPF_FUNC_text_str            = (bpf_func_id) -10;
+-const bpf_func_id BPF_FUNC_string_quoted       = (bpf_func_id) -11;
++constexpr uint64_t BPF_FUNC_map_get_next_key = static_cast<uint64_t>(-1);
++constexpr uint64_t BPF_FUNC_sprintf = static_cast<uint64_t>(-2);
++constexpr uint64_t BPF_FUNC_stapbpf_stat_get = static_cast<uint64_t>(-3);
++constexpr uint64_t BPF_FUNC_gettimeofday_ns = static_cast<uint64_t>(-4);
++constexpr uint64_t BPF_FUNC_get_target = static_cast<uint64_t>(-5);
++constexpr uint64_t BPF_FUNC_set_procfs_value = static_cast<uint64_t>(-6);
++constexpr uint64_t BPF_FUNC_append_procfs_value = static_cast<uint64_t>(-7);
++constexpr uint64_t BPF_FUNC_get_procfs_value = static_cast<uint64_t>(-8);
++constexpr uint64_t BPF_FUNC_str_concat = static_cast<uint64_t>(-9);
++constexpr uint64_t BPF_FUNC_text_str = static_cast<uint64_t>(-10);
++constexpr uint64_t BPF_FUNC_string_quoted = static_cast<uint64_t>(-11);
+ 
+ struct insn
+ {
