@@ -150,6 +150,19 @@ autoreconf -fi
 . %{_sysconfdir}/profile.d/90java.sh
 %endif
 
+# clang 23.1.0 LoongArch DAG->DAG ISel SIGTRAP on cache.cxx
+# (add_script_to_cache), staputil.cxx (stap_waitpid) and main.cxx
+# (passes_0_4), including at -O0 / -mno-lsx. GCC 16 compiles them.
+%ifarch %{loongarch64}
+%if %{cross_compiling}
+export CC=%{_target_platform}-gcc
+export CXX=%{_target_platform}-g++
+%else
+export CC=gcc
+export CXX=g++
+%endif
+%endif
+
 %global optflags %{optflags} -Wno-error
 # FIXME at the moment disabling avahi also disables nss and libvirt
 # That's because all 3 are disabled for bootstrapping. Might make sense
