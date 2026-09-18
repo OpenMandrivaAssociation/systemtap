@@ -24,9 +24,8 @@ Url:		https://sourceware.org/systemtap/
 Source0:	http://sourceware.org/systemtap/ftp/releases/%{name}-%{version}.tar.gz
 #Patch0:		systemtap-4.7-python-3.11.patch
 Patch3:		systemtap-2.5-fix-aliasing-violations.patch
-# clang 23: const bpf_func_id X = (bpf_func_id)-N is not a switch case
-# (enum range 0..255). Use the uint64_t bit pattern the interpreter
-# actually switches on. Native cooker hits this too.
+# clang 23: bpf::BPF_FUNC_* negative helpers are not uint32_t case
+# labels. 5.6 switches on (uint32_t)si.
 Patch4:		systemtap-5.5-stapbpf-case-labels.patch
 
 BuildRequires:	autoconf
