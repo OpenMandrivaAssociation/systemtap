@@ -16,8 +16,8 @@
 
 Summary:	Infrastructure to gather information about the running Linux system
 Name:		systemtap
-Version:	5.5
-Release:	2
+Version:	5.6
+Release:	1
 License:	GPLv2+
 Group:		Development/Kernel
 Url:		https://sourceware.org/systemtap/
@@ -31,7 +31,6 @@ Patch4:		systemtap-5.5-stapbpf-case-labels.patch
 
 BuildRequires:	autoconf
 BuildRequires:	automake
-BuildRequires:	libtool-base
 BuildRequires:	slibtool
 BuildRequires:	make
 BuildRequires:	cap-devel
@@ -188,6 +187,13 @@ export CXX=g++
 %install
 %make_install
 
+# systemd templates replacing the removed systemtap-service initscript
+install -m 755 -d %{buildroot}%{_unitdir}
+install -m 644 initscript/stap@.service %{buildroot}%{_unitdir}/stap@.service
+install -m 644 initscript/staprun@.service %{buildroot}%{_unitdir}/staprun@.service
+install -m 755 -d %{buildroot}%{_sysconfdir}/systemtap/conf.d
+install -m 755 -d %{buildroot}%{_sysconfdir}/systemtap/script.d
+
 # we add testsuite with a lot of examples
 install -m 766 -d testsuite %{buildroot}%{_datadir}/%{name}/
 
@@ -196,12 +202,18 @@ install -m 766 -d testsuite %{buildroot}%{_datadir}/%{name}/
 %files
 %{_bindir}/stap
 %{_bindir}/stap-prep
+%{_bindir}/stap-onboot
 %{_bindir}/stap-jupyter-container
 %{_bindir}/stap-jupyter-install
 %if ! %{without avahi}
 %{_bindir}/stapvirt
 %endif
 /lib/systemd/system/stap-exporter.service
+%{_unitdir}/stap@.service
+%{_unitdir}/staprun@.service
+%dir %{_sysconfdir}/systemtap
+%dir %{_sysconfdir}/systemtap/conf.d
+%dir %{_sysconfdir}/systemtap/script.d
 %{_bindir}/stap-profile-annotate
 %{_mandir}/man[17]/*
 %lang(cs) %{_mandir}/cs/man[17]/*
@@ -221,6 +233,7 @@ install -m 766 -d testsuite %{buildroot}%{_datadir}/%{name}/
 %dir %{_libexecdir}/%{name}
 %{_libexecdir}/%{name}/stapio
 %{_libexecdir}/%{name}/stap-env
+%{_libexecdir}/%{name}/stap-service-prepare
 %if ! %{without avahi}
 %{_libexecdir}/%{name}/stap-authorize-cert
 %endif
@@ -229,7 +242,7 @@ install -m 766 -d testsuite %{buildroot}%{_datadir}/%{name}/
 %{_mandir}/man8/stapbpf.8.*
 %{_mandir}/man8/staprun.8*
 %{_mandir}/man8/stapsh.8.*
-%{_mandir}/man8/systemtap-service.8.*
+%{_mandir}/man8/stap-onboot.8*
 %lang(cs) %{_mandir}/cs/man8/stapsh.8*
 
 %if %{with java}
