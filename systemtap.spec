@@ -55,6 +55,9 @@ BuildRequires:	pkgconfig(nspr)
 BuildRequires:	pkgconfig(sqlite3)
 BuildRequires:	pkgconfig(python3)
 BuildRequires:	python-setuptools
+# 5.6 python/Makefile uses "python -m pip wheel --no-build-isolation"
+BuildRequires:	python%{pyver}dist(pip)
+BuildRequires:	python%{pyver}dist(wheel)
 BuildRequires:	pkgconfig(rpm)
 BuildRequires:	pkgconfig(popt)
 %if %{with java}
