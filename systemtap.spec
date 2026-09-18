@@ -241,6 +241,7 @@ install -m 766 -d testsuite %{buildroot}%{_datadir}/%{name}/
 %endif
 %{_libexecdir}/%{name}/python
 %{_libdir}/python3*/site-packages/HelperSDT*
+%{_libdir}/python3*/site-packages/helpersdt*
 %{_mandir}/man8/stapbpf.8.*
 %{_mandir}/man8/staprun.8*
 %{_mandir}/man8/stapsh.8.*
