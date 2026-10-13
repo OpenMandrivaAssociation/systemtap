@@ -13,14 +13,13 @@
 
 %bcond_without	avahi
 %bcond_without	docs
-# libvirt pulls the published qemu, which still needs libcapstone.so.4.
-# stapvirt stays out until that qemu is rebuilt against capstone 5.
-%bcond_with	libvirt
+# qemu 11.1.1-2 links capstone 5, so libvirt can be installed again.
+%bcond_without	libvirt
 
 Summary:	Infrastructure to gather information about the running Linux system
 Name:		systemtap
 Version:	5.6
-Release:	3
+Release:	4
 License:	GPLv2+
 Group:		Development/Kernel
 Url:		https://sourceware.org/systemtap/
