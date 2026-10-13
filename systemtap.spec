@@ -13,11 +13,14 @@
 
 %bcond_without	avahi
 %bcond_without	docs
+# libvirt pulls the published qemu, which still needs libcapstone.so.4.
+# stapvirt stays out until that qemu is rebuilt against capstone 5.
+%bcond_with	libvirt
 
 Summary:	Infrastructure to gather information about the running Linux system
 Name:		systemtap
 Version:	5.6
-Release:	2
+Release:	3
 License:	GPLv2+
 Group:		Development/Kernel
 Url:		https://sourceware.org/systemtap/
@@ -36,7 +39,9 @@ BuildRequires:	cap-devel
 BuildRequires:	elfutils-devel
 BuildRequires:	gettext
 BuildRequires:	gettext-devel
+%if %{with libvirt}
 BuildRequires:	pkgconfig(libvirt)
+%endif
 BuildRequires:	pkgconfig(libxml-2.0)
 BuildRequires:	pkgconfig(json-c)
 BuildRequires:	pkgconfig(ncursesw)
@@ -180,6 +185,10 @@ export CXX=g++
 %if %{without avahi}
 		--without-avahi \
 		--without-nss \
+%endif
+%if %{with libvirt}
+		--enable-libvirt \
+%else
 		--disable-libvirt \
 %endif
 		--enable-sqlite \
@@ -207,7 +216,7 @@ install -m 766 -d testsuite %{buildroot}%{_datadir}/%{name}/
 %{_bindir}/stap-onboot
 %{_bindir}/stap-jupyter-container
 %{_bindir}/stap-jupyter-install
-%if ! %{without avahi}
+%if %{with libvirt}
 %{_bindir}/stapvirt
 %endif
 /lib/systemd/system/stap-exporter.service
